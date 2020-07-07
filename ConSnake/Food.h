@@ -25,7 +25,7 @@ Food::~Food()
 }
 ostream& operator<<(ostream& myCout, Food& food) {
     gotoXY(food.coord_.x, food.coord_.y);
-	SetConsoleTextAttribute(h,FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+	setColor(Color::GREEN);
     myCout <<  char(Symbol::APPLE);
     return myCout;
 }
