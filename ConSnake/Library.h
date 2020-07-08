@@ -1,7 +1,4 @@
 #pragma once
-  
-#pragma once
-
 #include <iostream>
 #include <time.h>
 #include <cstdlib>
@@ -9,7 +6,7 @@
 #include <process.h>
 #include <conio.h>
 #include <fstream>
-
+#include <string>
 using namespace std;
 
 //struct
@@ -22,10 +19,15 @@ struct Coordinate
 {
 	int x, y;
 };
-
-//ascii code
-enum class Symbol
+enum Symbol
 {
+	TOP_LEFT = 187,
+	TOP_RIGHT = 201,
+	BOTTOM_LEFT = 188,
+	BOTTOM_RIGHT = 200,
+
+	LONG_BLOCK = 205,
+	TALL_BLOCK = 186,
 	LONG_BIG_BLOCK = 219,
 	SQUARE_BLOCK = 254,
 	LONG_THIN_LEFT_BLOCK = 222,
@@ -34,20 +36,6 @@ enum class Symbol
 	LONG_BOTTOM_BLOCK = 223,
 	APPLE = 153
 };
-
-//constant
-const short int MAX_B = 11;
-const short int MAX = 114;
-const short int WIDTH = 77;
-const short int BOARD_WIDTH = 37;
-const short int HEIGHT = 22;
-const short int INIT_SNAKE_LENGTH = 4;
-const short int INIT_FOOD_COUNTER = 0;
-const short int FOOD = 1;
-
-//su dung cho cac windows func
-static HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
-
 //bien mau
 enum class Color
 {
@@ -83,6 +71,19 @@ enum class SnakeDirection {
 	EXIT = -1
 };
 
+//constant
+const short int MAX_B = 11;
+const short int MAX = 114;
+const short int WIDTH = 77;
+const short int BOARD_WIDTH = 37;
+const short int HEIGHT = 22;
+const short int INIT_SNAKE_LENGTH = 4;
+const short int INIT_FOOD_COUNTER = 0;
+const short int FOOD = 1;
+
+//su dung cho cac windows func
+static HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+
 //huong di
 static short int dx[5] = { 1, 0, -1, 0 };
 static short int dy[5] = { 0, -1, 0, 1 };
@@ -92,9 +93,8 @@ static unsigned short int speed[5]{ 0, 34 , 74 , 0 };
 //(0, -1) = len
 //(-1, 0) = trai
 //(0, 1) = xuong
-SnakeDirection prevInput = SnakeDirection::LEFT;
-SnakeDirection input = SnakeDirection::LEFT;	//bien toan cuc de lay huong di chuyen cua ran
-MapData item = MapData::NOTHING;
+static SnakeDirection prevInput = SnakeDirection::LEFT;
+static SnakeDirection input = SnakeDirection::LEFT;	//bien toan cuc de lay huong di chuyen cua ran
 
 static void gotoXY(int column, int row)
 {
@@ -124,18 +124,18 @@ static void clearScreen()
 	cellCount = csbi.dwSize.X * csbi.dwSize.Y;
 
 	if (!FillConsoleOutputCharacter(
-		hStdOut,		
-		(TCHAR)' ',	
-		cellCount,		
-		homeCoords,		
-		&count			
+		hStdOut,
+		(TCHAR)' ',
+		cellCount,
+		homeCoords,
+		&count
 	)) return;
 	if (!FillConsoleOutputAttribute(
-		hStdOut,			
-		csbi.wAttributes,	
-		cellCount,			
-		homeCoords,			
-		&count				
+		hStdOut,
+		csbi.wAttributes,
+		cellCount,
+		homeCoords,
+		&count
 	)) return;
 	SetConsoleCursorPosition(hStdOut, homeCoords);
 }
