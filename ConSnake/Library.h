@@ -93,9 +93,11 @@ static unsigned short int speed[5]{ 0, 34 , 74 , 0 };
 //(0, -1) = len
 //(-1, 0) = trai
 //(0, 1) = xuong
-static SnakeDirection prevInput = SnakeDirection::LEFT;
-static SnakeDirection input = SnakeDirection::LEFT;	//bien toan cuc de lay huong di chuyen cua ran
-
+namespace INPUT
+{
+	static SnakeDirection prevInput = SnakeDirection::LEFT;
+	static SnakeDirection userInput = SnakeDirection::LEFT;	//bien toan cuc de lay huong di chuyen cua ran
+}
 static void gotoXY(int column, int row)
 {
 	HANDLE hStdOut;
