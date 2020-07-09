@@ -142,11 +142,13 @@
     <ClInclude Include="Data.h" />
     <ClInclude Include="Food.h" />
     <ClInclude Include="Library.h" />
+    <ClInclude Include="SnakeKun.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="Food.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SnakeKun.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

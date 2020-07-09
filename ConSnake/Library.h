@@ -93,9 +93,11 @@ static unsigned short int speed[5]{ 0, 34 , 74 , 0 };
 //(0, -1) = len
 //(-1, 0) = trai
 //(0, 1) = xuong
-static SnakeDirection prevInput = SnakeDirection::LEFT;
-static SnakeDirection input = SnakeDirection::LEFT;	//bien toan cuc de lay huong di chuyen cua ran
-
+namespace INPUT
+{
+	static SnakeDirection prevInput = SnakeDirection::LEFT;
+	static SnakeDirection userInput = SnakeDirection::LEFT;	//bien toan cuc de lay huong di chuyen cua ran
+}
 static void gotoXY(int column, int row)
 {
 	HANDLE hStdOut;
@@ -168,4 +170,17 @@ static void hideCursor()
 	CONSOLE_CURSOR_INFO info;
 	info.dwSize = 100;   info.bVisible = false;
 	SetConsoleCursorInfo(consoleHandle, &info);
+}
+
+static bool oppositeDirection(SnakeDirection input1, SnakeDirection input2)
+{
+	if (input1 == SnakeDirection::LEFT && input2 != SnakeDirection::RIGHT)
+		return false;
+	if (input1 == SnakeDirection::RIGHT && input2 != SnakeDirection::LEFT)
+		return false;
+	if (input1 == SnakeDirection::UP && input2 != SnakeDirection::DOWN)
+		return false;
+	if (input1 == SnakeDirection::DOWN && input2 != SnakeDirection::UP)
+		return false;
+	return true;
 }
