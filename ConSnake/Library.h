@@ -25,9 +25,9 @@ enum Symbol
 	TOP_RIGHT = 201,
 	BOTTOM_LEFT = 188,
 	BOTTOM_RIGHT = 200,
-
 	LONG_BLOCK = 205,
 	TALL_BLOCK = 186,
+
 	LONG_BIG_BLOCK = 219,
 	SQUARE_BLOCK = 254,
 	LONG_THIN_LEFT_BLOCK = 222,
@@ -63,6 +63,13 @@ enum class MapData
 	NOTHING = 0
 };
 
+static bool operator == (MapData& s, const short int x)
+{
+	if (s == x)
+		return 1;
+	else return 0;
+}
+
 enum class SnakeDirection {
 	RIGHT = 0,
 	UP = 1,
@@ -80,6 +87,7 @@ const short int HEIGHT = 22;
 const short int INIT_SNAKE_LENGTH = 4;
 const short int INIT_FOOD_COUNTER = 0;
 const short int FOOD = 1;
+static short int item = (short int)MapData::NOTHING;
 
 //su dung cho cac windows func
 static HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -93,7 +101,7 @@ static unsigned short int speed[5]{ 0, 34 , 74 , 0 };
 //(0, -1) = len
 //(-1, 0) = trai
 //(0, 1) = xuong
-namespace INPUT
+namespace Input
 {
 	static SnakeDirection prevInput = SnakeDirection::LEFT;
 	static SnakeDirection userInput = SnakeDirection::LEFT;	//bien toan cuc de lay huong di chuyen cua ran
@@ -183,4 +191,23 @@ static bool oppositeDirection(SnakeDirection input1, SnakeDirection input2)
 	if (input1 == SnakeDirection::DOWN && input2 != SnakeDirection::UP)
 		return false;
 	return true;
+}
+
+static void userInput(void* id)
+{
+	do
+	{
+		int c = _getch();
+		switch (c)
+		{
+		case 72: case 'w': case'W': Input::userInput = SnakeDirection::UP; break;
+		case 80: case 's': case'S': Input::userInput = SnakeDirection::DOWN; break;
+		case 77: case 'd': case'D': Input::userInput = SnakeDirection::RIGHT; break;
+		case 75: case 'a': case'A': Input::userInput = SnakeDirection::LEFT; break;
+		case 27:	    Input::userInput = SnakeDirection::EXIT; break;
+		}
+	} while (Input::userInput != SnakeDirection::EXIT && item >= 0);
+
+	_endthread();
+	return;
 }
