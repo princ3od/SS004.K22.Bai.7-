@@ -1,7 +1,8 @@
 #include "Library.h"
-#include "Data.h"
+#include "Menu.h"
+
 int main()
 {
-	
+	hideCursor();
 	return 0;
 }

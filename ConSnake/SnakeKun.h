@@ -5,6 +5,7 @@ class SnakeKun
 private:
 	int _length;
 	Coordinate _body[WIDTH * HEIGHT];
+	MapData _map[MAX][MAX];
 	SnakeDirection _direction;
 	int _speed;
 	bool _isAlive;
@@ -12,9 +13,10 @@ private:
 	int _foodCounter;
 public:
 	SnakeKun() {}
-	SnakeKun(MapData map[WIDTH][HEIGHT]);
-	void update();
+	void createSnake();
+	void update(unsigned short int& delay);
 	void setGameMode(GameMode _gm);
+	void countFood(unsigned short int&);
 	Coordinate getHead();
 	int getLength();
 	SnakeDirection getDirection();

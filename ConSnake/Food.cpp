@@ -8,6 +8,7 @@ Food::Food(MapData map[WIDTH][HEIGHT])
 		_coord.x = rand() % WIDTH + 1;
 		_coord.y = rand() % HEIGHT + 1;
 	} while (map[_coord.y][_coord.x] != MapData::NOTHING);
+	
 }
 Coordinate Food::get()
 {
