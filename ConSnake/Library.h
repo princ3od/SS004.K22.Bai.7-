@@ -171,3 +171,16 @@ static void hideCursor()
 	info.dwSize = 100;   info.bVisible = false;
 	SetConsoleCursorInfo(consoleHandle, &info);
 }
+
+static bool oppositeDirection(SnakeDirection input1, SnakeDirection input2)
+{
+	if (input1 == SnakeDirection::LEFT && input2 != SnakeDirection::RIGHT)
+		return false;
+	if (input1 == SnakeDirection::RIGHT && input2 != SnakeDirection::LEFT)
+		return false;
+	if (input1 == SnakeDirection::UP && input2 != SnakeDirection::DOWN)
+		return false;
+	if (input1 == SnakeDirection::DOWN && input2 != SnakeDirection::UP)
+		return false;
+	return true;
+}

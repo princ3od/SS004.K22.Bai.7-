@@ -11,9 +11,11 @@ private:
 	GameMode _gameMode;
 	int _foodCounter;
 public:
-	SnakeKun();
+	SnakeKun() {}
+	SnakeKun(MapData map[WIDTH][HEIGHT]);
 	void update();
 	void setGameMode(GameMode _gm);
+	Coordinate getHead();
 	int getLength();
 	SnakeDirection getDirection();
 	int getSpeed();
