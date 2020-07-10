@@ -5,16 +5,17 @@ class SnakeKun
 private:
 	int _length;
 	Coordinate _body[WIDTH * HEIGHT];
-	MapData _map[MAX][MAX];
 	SnakeDirection _direction;
 	int _speed;
 	bool _isAlive;
 	GameMode _gameMode;
 	int _foodCounter;
+	int _curColor;
+	void supportLGBTComunity();
 public:
 	SnakeKun() {}
-	void createSnake();
-	void update(unsigned short int& delay);
+	SnakeKun(MapData _map[MAX][MAX]);
+	void update(unsigned short int& delay, MapData _map[MAX][MAX]);
 	void setGameMode(GameMode _gm);
 	void countFood(unsigned short int&);
 	Coordinate getHead();

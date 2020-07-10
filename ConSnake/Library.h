@@ -21,10 +21,10 @@ struct Coordinate
 };
 enum Symbol
 {
-	TOP_LEFT = 187,
-	TOP_RIGHT = 201,
-	BOTTOM_LEFT = 188,
-	BOTTOM_RIGHT = 200,
+	BOTTOM_LEFT = 187,
+	TOP_LEFT = 188,
+	TOP_RIGHT = 200,
+	BOTTOM_RIGHT = 201,
 	LONG_BLOCK = 205,
 	TALL_BLOCK = 186,
 
@@ -34,7 +34,14 @@ enum Symbol
 	LONG_THIN_RIGHT_BLOCK = 221,
 	LONG_TOP_BLOCK = 220,
 	LONG_BOTTOM_BLOCK = 223,
-	APPLE = 153
+	APPLE = 153,
+
+	UP_KEY = 72,
+	DOWN_KEY = 80,
+	RIGHT_KEY = 77,
+	LEFT_KEY = 75,
+	EXIT_KEY = 27
+
 };
 //bien mau
 enum class Color
@@ -43,7 +50,8 @@ enum class Color
 	GREEN = 1,
 	BLUE = 2,
 	YELLOW = 3,
-	PURPLE = 4
+	PURPLE = 4,
+	ORANGE = 5
 };
 
 //game mode 
@@ -62,13 +70,6 @@ enum class MapData
 	SNAKE = -1,
 	NOTHING = 0
 };
-
-static bool operator == (MapData& s, const short int x)
-{
-	if (s == x)
-		return 1;
-	else return 0;
-}
 
 enum class SnakeDirection {
 	RIGHT = 0,
@@ -103,8 +104,8 @@ static unsigned short int speed[5]{ 0, 34 , 74 , 0 };
 //(0, 1) = xuong
 namespace Input
 {
-	static SnakeDirection prevInput = SnakeDirection::LEFT;
-	static SnakeDirection userInput = SnakeDirection::LEFT;	//bien toan cuc de lay huong di chuyen cua ran
+	static SnakeDirection prevInput = SnakeDirection::RIGHT;
+	static SnakeDirection userInput = SnakeDirection::RIGHT;//bien toan cuc de lay huong di chuyen cua ran
 }
 static void gotoXY(int column, int row)
 {
@@ -155,13 +156,16 @@ static void setColor(Color _color)
 	switch (_color)
 	{
 	case Color::RED:
+		SetConsoleTextAttribute(h, FOREGROUND_RED);
+		break;
+	case Color::ORANGE:
 		SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
 		break;
 	case Color::GREEN:
-		SetConsoleTextAttribute(h, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+		SetConsoleTextAttribute(h, FOREGROUND_GREEN);
 		break;
 	case Color::BLUE:
-		SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+		SetConsoleTextAttribute(h, FOREGROUND_BLUE);
 		break;
 	case Color::YELLOW:
 		SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_GREEN);
@@ -174,12 +178,21 @@ static void setColor(Color _color)
 
 static void hideCursor()
 {
-	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_CURSOR_INFO info;
 	info.dwSize = 100;   info.bVisible = false;
-	SetConsoleCursorInfo(consoleHandle, &info);
+	SetConsoleCursorInfo(h, &info);
 }
-
+static void setFont()
+{
+	PCONSOLE_FONT_INFOEX font = new CONSOLE_FONT_INFOEX();
+	font->cbSize = sizeof(CONSOLE_FONT_INFOEX);
+	//CONSOLE_FONT_INFOEX is defined in some windows header
+	GetCurrentConsoleFontEx(h, false, font);
+	//PCONSOLE_FONT_INFOEX is the same as CONSOLE_FONT_INFOEX*
+	font->dwFontSize.X = 180;
+	font->dwFontSize.Y = 20;
+	SetCurrentConsoleFontEx(h, false, font);
+}
 static bool oppositeDirection(SnakeDirection input1, SnakeDirection input2)
 {
 	if (input1 == SnakeDirection::LEFT && input2 != SnakeDirection::RIGHT)
@@ -200,14 +213,23 @@ static void userInput(void* id)
 		int c = _getch();
 		switch (c)
 		{
-		case 72: case 'w': case'W': Input::userInput = SnakeDirection::UP; break;
-		case 80: case 's': case'S': Input::userInput = SnakeDirection::DOWN; break;
-		case 77: case 'd': case'D': Input::userInput = SnakeDirection::RIGHT; break;
-		case 75: case 'a': case'A': Input::userInput = SnakeDirection::LEFT; break;
-		case 27:	    Input::userInput = SnakeDirection::EXIT; break;
+		case (int)Symbol::UP_KEY: case 'w': case'W':
+			Input::userInput = SnakeDirection::UP;
+			break;
+		case (int)Symbol::DOWN_KEY: case 's': case'S':
+			Input::userInput = SnakeDirection::DOWN;
+			break;
+		case (int)Symbol::RIGHT_KEY: case 'd': case'D':
+			Input::userInput = SnakeDirection::RIGHT;
+			break;
+		case (int)Symbol::LEFT_KEY: case 'a': case'A':
+			Input::userInput = SnakeDirection::LEFT;
+			break;
+		case (int)Symbol::EXIT_KEY:
+			Input::userInput = SnakeDirection::EXIT;
+			break;
 		}
 	} while (Input::userInput != SnakeDirection::EXIT && item >= 0);
-
 	_endthread();
 	return;
 }

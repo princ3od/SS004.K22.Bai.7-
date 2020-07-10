@@ -1,128 +1,171 @@
 #include "SnakeKun.h"
 
-void SnakeKun::createSnake()
+SnakeKun::SnakeKun(MapData _map[MAX][MAX])
 {
-    _length = INIT_SNAKE_LENGTH;
-    _body[0] = { WIDTH / 2,HEIGHT / 2 };
-    _direction = Input::userInput;
-    _foodCounter = INIT_FOOD_COUNTER;
-    for (int i = 1; i < _length; i++)
-    {
-        _body[i].x = _body[i - 1].x - dx[(int)_direction];
-        _body[i].y = _body[i - 1].y - dy[(int)_direction];
-    }
-    for (int i = 0; i < _length; i++)
-        _map[_body[i].y][_body[i].x] = MapData::SNAKE;
+	_curColor = 0;
+	_length = INIT_SNAKE_LENGTH;
+	_body[0] = { WIDTH / 2,HEIGHT / 2 };
+	gotoXY(_body[0].x, _body[0].y);
+	supportLGBTComunity();
+
+	cout << (char)Symbol::LONG_BLOCK;
+	_direction = Input::userInput;
+	_foodCounter = INIT_FOOD_COUNTER;
+	for (int i = 1; i < _length; i++)
+	{
+		_body[i].x = _body[i - 1].x - dx[(int)_direction];
+		_body[i].y = _body[i - 1].y - dy[(int)_direction];
+		gotoXY(_body[i].x, _body[i].y);
+		supportLGBTComunity();
+		cout << (char)Symbol::LONG_BLOCK;
+	}
+	for (int i = 0; i < _length; i++)
+		_map[_body[i].y][_body[i].x] = MapData::SNAKE;
 }
 
-void SnakeKun::update(unsigned short int& delay)
+void SnakeKun::update(unsigned short int& delay, MapData _map[MAX][MAX])
 {
-    //dia chi tam thoi cua ran
-    int i;
-    int delay_slow = delay;
-    Coordinate _prev[WIDTH * HEIGHT];
+	//dia chi tam thoi cua ran
+	int i;
+	int delay_slow = delay;
+	Coordinate _prev[WIDTH * HEIGHT];
 
-    for (i = 0; i < _length; i++)
-    {
-        _prev[i].x = _body[i].x;     
-        _prev[i].y = _body[i].y;
-    }
-    if (Input::userInput != SnakeDirection::EXIT && !oppositeDirection(_direction, Input::userInput))
-        _direction = Input::userInput;
+	for (i = 0; i < _length; i++)
+	{
+		_prev[i].x = _body[i].x;
+		_prev[i].y = _body[i].y;
+	}
+	if (Input::userInput != SnakeDirection::EXIT && !oppositeDirection(_direction, Input::userInput))
+		_direction = Input::userInput;
 
-    //di chuyen dau con snake theo huong cua input (2)
-    _body[0].x = _prev[0].x + dx[(int)_direction];		
-    _body[0].y = _prev[0].y + dy[(int)_direction];
+	//di chuyen dau con snake theo huong cua input (2)
+	_body[0].x = _prev[0].x + dx[(int)_direction];
+	_body[0].y = _prev[0].y + dy[(int)_direction];
 
-    //neu tu dam vao minh thi gameover(3)
-    if (_map[_body[0].y][_body[0].x] < MapData::NOTHING)
-    {
-        item = -1;     
-        return;
-    }
+	//neu tu dam vao minh thi gameover(3)
+	if (_map[_body[0].y][_body[0].x] == MapData::WALL
+		|| _map[_body[0].y][_body[0].x] == MapData::SNAKE)
+	{
+		_isAlive = false;
+		return;
+	}
 
-    //neu an duoc thi cong diem(4)
-    if (_map[_body[0].y][_body[0].x] == FOOD)
-    {
-        countFood(delay);
-    }
-    else
-    {
-        _map[_body[_length - 1].y][_body[_length - 1].x] = MapData::NOTHING;
-        item = (short int)MapData::NOTHING;
-        gotoXY(_body[_length - 1].x, _body[_length - 1].y);		// neu snake chua tang kich co thi(6)
-        cout << " ";						                    // xoa phan cuoi cua snake
-    }
+	//neu an duoc thi cong diem(4)
+	if ((short)_map[_body[0].y][_body[0].x] == FOOD)
+		countFood(delay);
+	else
+	{
+		//xoa duoi (tail) snake khi snake chua tang kich co 
+		_map[_body[_length - 1].y][_body[_length - 1].x] = MapData::NOTHING;
+		item = (short int)MapData::NOTHING;
+		gotoXY(_body[_length - 1].x, _body[_length - 1].y);
+		cout << " ";
+	}
 
-    for (i = 1; i < _length; i++)
-    {
-        _body[i].x = _prev[i - 1].x;	//snake di chuyen theo huong ban dau(7)
-        _body[i].y = _prev[i - 1].y;
-    }
+	for (i = 1; i < _length; i++)
+	{
+		_body[i].x = _prev[i - 1].x;	//snake di chuyen theo huong ban dau(7)
+		_body[i].y = _prev[i - 1].y;
+	}
 
-    //dua du lieu snake vao map(8)
-    for (i = 0; i < _length; i++)
-        _map[_body[i].y][_body[i].x] = MapData::SNAKE;
+	gotoXY(_body[0].x, _body[0].y);
+	supportLGBTComunity(); //yeah, we support LGBT community :v
 
-    //neu ran di len/xuong thi giam toc do(9)
-    if (Input::userInput == SnakeDirection::UP || Input::userInput == SnakeDirection::DOWN)
-    {
-        delay_slow += (delay * 25) / 100;
-        Sleep(delay_slow);
-    }
-    else Sleep(delay);
+	if (Input::prevInput != Input::userInput
+		&& !oppositeDirection(Input::prevInput, Input::userInput))
+	{
+		if ((Input::prevInput == SnakeDirection::RIGHT && Input::userInput == SnakeDirection::DOWN)
+			|| (Input::prevInput == SnakeDirection::UP && Input::userInput == SnakeDirection::LEFT))
+			cout << (char)Symbol::BOTTOM_LEFT;
+		else if ((Input::prevInput == SnakeDirection::RIGHT && Input::userInput == SnakeDirection::UP)
+			|| (Input::prevInput == SnakeDirection::DOWN && Input::userInput == SnakeDirection::LEFT))
+			cout << (char)Symbol::TOP_LEFT;
+		else if ((Input::prevInput == SnakeDirection::LEFT && Input::userInput == SnakeDirection::UP)
+			|| (Input::prevInput == SnakeDirection::DOWN && Input::userInput == SnakeDirection::RIGHT))
+			cout << (char)Symbol::TOP_RIGHT;
+		else if ((Input::prevInput == SnakeDirection::LEFT && Input::userInput == SnakeDirection::DOWN)
+			|| (Input::prevInput == SnakeDirection::UP && Input::userInput == SnakeDirection::RIGHT))
+			cout << (char)Symbol::BOTTOM_RIGHT;
+		Input::prevInput = Input::userInput;
+	}
+	else
+	{
+		if (Input::prevInput == SnakeDirection::UP || Input::prevInput == SnakeDirection::DOWN)
+			cout << (char)Symbol::TALL_BLOCK;
+		else
+			cout << (char)Symbol::LONG_BLOCK;
+	}
+	//dua du lieu snake vao map(8)
+	for (i = 0; i < _length; i++)
+		_map[_body[i].y][_body[i].x] = MapData::SNAKE;
+
+	//neu ran di len/xuong thi giam toc do(9)
+	if (Input::prevInput == SnakeDirection::UP || Input::prevInput == SnakeDirection::DOWN)
+	{
+		delay_slow += (delay * 25) / 100;
+		Sleep(delay_slow);
+	}
+	else Sleep(delay);
 
 }
 
 void SnakeKun::countFood(unsigned short int& delay)
 {
-    //tinh diem khac nhau, tuy gamemode (5)
-    switch (_gameMode) 
-    {
-    case GameMode::EASY:
-        _foodCounter += (_length * 5); break;
-    case GameMode::NORMAL:
-        _foodCounter += (_length * 10); break;
-    case GameMode::HARD:
-        _foodCounter += (_length * 15); break;
-    case GameMode::SPECIAL:
-        _foodCounter += (_length * (_length - 3)); break;
-    }
-    // tang kich thuoc ran khi ran an(6)
-    _length++; 
-    item = FOOD;
-    if (_gameMode == GameMode::SPECIAL && _length <= 104) {
-        //tang toc do trong gamemode special
-        --delay; 
-    }
+	//tinh diem khac nhau, tuy gamemode (5)
+	switch (_gameMode)
+	{
+	case GameMode::EASY:
+		_foodCounter += (_length * 5); break;
+	case GameMode::NORMAL:
+		_foodCounter += (_length * 10); break;
+	case GameMode::HARD:
+		_foodCounter += (_length * 15); break;
+	case GameMode::SPECIAL:
+		_foodCounter += (_length * (_length - 3)); break;
+	}
+	// tang kich thuoc ran khi ran an(6)
+	_length++;
+	item = FOOD;
+	if (_gameMode == GameMode::SPECIAL && _length <= 104) {
+		//tang toc do trong gamemode special
+		--delay;
+	}
 }
 
 void SnakeKun::setGameMode(GameMode _gm)
 {
-    _gameMode = _gm;
+	_gameMode = _gm;
 }
 
 Coordinate SnakeKun::getHead()
 {
-    return _body[0];
+	return _body[0];
 }
 
 int SnakeKun::getLength()
 {
-    return _length;
+	return _length;
 }
 
 SnakeDirection SnakeKun::getDirection()
 {
-    return _direction;
+	return _direction;
 }
 
 int SnakeKun::getSpeed()
 {
-    return _speed;
+	return _speed;
 }
 
 bool SnakeKun::isAive()
 {
-    return _isAlive;
+	return _isAlive;
+}
+
+void SnakeKun::supportLGBTComunity()
+{
+	Color _c[6] = { Color::RED,Color::ORANGE,Color::YELLOW,Color::GREEN,Color::BLUE,Color::PURPLE };
+	setColor(_c[_curColor]);
+	_curColor++;
+	_curColor = (_curColor > 5) ? 0 : _curColor;
 }
