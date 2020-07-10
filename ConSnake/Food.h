@@ -8,7 +8,6 @@ private:
 public:
 	Food() {}
 	~Food() {}
-	Food(MapData map[WIDTH][HEIGHT]);
+	Food(MapData map[MAX][MAX]);
 	Coordinate get();
-	friend ostream& operator<<(ostream&, Food&);
 };

@@ -18,6 +18,10 @@ struct Board
 struct Coordinate
 {
 	int x, y;
+	bool operator==(Coordinate b)
+	{
+		return (x == b.x) && (y == b.y);
+	}
 };
 enum Symbol
 {
@@ -68,7 +72,8 @@ enum class MapData
 {
 	WALL = -2,
 	SNAKE = -1,
-	NOTHING = 0
+	NOTHING = 0,
+	FOOD = 1,
 };
 
 enum class SnakeDirection {
@@ -87,7 +92,6 @@ const short int BOARD_WIDTH = 37;
 const short int HEIGHT = 22;
 const short int INIT_SNAKE_LENGTH = 4;
 const short int INIT_FOOD_COUNTER = 0;
-const short int FOOD = 1;
 static short int item = (short int)MapData::NOTHING;
 
 //su dung cho cac windows func
@@ -104,8 +108,8 @@ static unsigned short int speed[5]{ 0, 34 , 74 , 0 };
 //(0, 1) = xuong
 namespace Input
 {
-	static SnakeDirection prevInput = SnakeDirection::RIGHT;
-	static SnakeDirection userInput = SnakeDirection::RIGHT;//bien toan cuc de lay huong di chuyen cua ran
+	static SnakeDirection prevInput;
+	static SnakeDirection userInput;//bien toan cuc de lay huong di chuyen cua ran
 }
 static void gotoXY(int column, int row)
 {
@@ -193,43 +197,14 @@ static void setFont()
 	font->dwFontSize.Y = 20;
 	SetCurrentConsoleFontEx(h, false, font);
 }
-static bool oppositeDirection(SnakeDirection input1, SnakeDirection input2)
+static bool isOppositeDirection(SnakeDirection input1, SnakeDirection input2)
 {
-	if (input1 == SnakeDirection::LEFT && input2 != SnakeDirection::RIGHT)
-		return false;
-	if (input1 == SnakeDirection::RIGHT && input2 != SnakeDirection::LEFT)
-		return false;
-	if (input1 == SnakeDirection::UP && input2 != SnakeDirection::DOWN)
-		return false;
-	if (input1 == SnakeDirection::DOWN && input2 != SnakeDirection::UP)
-		return false;
-	return true;
+	if ((input1 == SnakeDirection::LEFT && input2 == SnakeDirection::RIGHT)
+		|| (input1 == SnakeDirection::UP && input2 == SnakeDirection::DOWN)
+		|| (input2 == SnakeDirection::LEFT && input1 == SnakeDirection::RIGHT)
+		|| (input2 == SnakeDirection::UP && input1 == SnakeDirection::DOWN))
+		return true;
+	return false;
 }
 
-static void userInput(void* id)
-{
-	do
-	{
-		int c = _getch();
-		switch (c)
-		{
-		case (int)Symbol::UP_KEY: case 'w': case'W':
-			Input::userInput = SnakeDirection::UP;
-			break;
-		case (int)Symbol::DOWN_KEY: case 's': case'S':
-			Input::userInput = SnakeDirection::DOWN;
-			break;
-		case (int)Symbol::RIGHT_KEY: case 'd': case'D':
-			Input::userInput = SnakeDirection::RIGHT;
-			break;
-		case (int)Symbol::LEFT_KEY: case 'a': case'A':
-			Input::userInput = SnakeDirection::LEFT;
-			break;
-		case (int)Symbol::EXIT_KEY:
-			Input::userInput = SnakeDirection::EXIT;
-			break;
-		}
-	} while (Input::userInput != SnakeDirection::EXIT && item >= 0);
-	_endthread();
-	return;
-}
+
