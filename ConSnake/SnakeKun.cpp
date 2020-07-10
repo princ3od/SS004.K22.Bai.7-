@@ -32,11 +32,6 @@ void SnakeKun::update(unsigned short int& delay, MapData _map[MAX][MAX],
 	int i;
 	int delay_slow = delay;
 
-	for (i = 0; i < _length; i++)
-	{
-		_prev[i].x = _body[i].x;
-		_prev[i].y = _body[i].y;
-	}
 	if (Input::userInput != SnakeDirection::EXIT && !isOppositeDirection(_direction, userInput))
 	{
 		prevInput = _direction;
@@ -44,19 +39,17 @@ void SnakeKun::update(unsigned short int& delay, MapData _map[MAX][MAX],
 	}
 
 	//di chuyen dau con snake theo huong cua input (2)
-	_body[0].x = _prev[0].x + dx[(int)_direction];
-	_body[0].y = _prev[0].y + dy[(int)_direction];
+	Coordinate _head = _body[0];
+	_head.x = _body[0].x + dx[(int)_direction];
+	_head.y = _body[0].y + dy[(int)_direction];
 
 	//neu tu dam vao minh thi gameover(3)
-	if (_map[_body[0].x][_body[0].y] == MapData::WALL
-		|| _map[_body[0].x][_body[0].y] == MapData::SNAKE)
-	{
+	if (_map[_head.x][_head.y] == MapData::WALL
+		|| _map[_head.x][_head.y] == MapData::SNAKE)
 		_isAlive = false;
-		return;
-	}
 
 	//neu an duoc thi cong diem(4)
-	if (_map[_body[0].x][_body[0].y] == MapData::FOOD)
+	if (_map[_head.x][_head.y] == MapData::FOOD)
 	{
 		_eated = true;
 		countFood(delay);
@@ -69,10 +62,10 @@ void SnakeKun::update(unsigned short int& delay, MapData _map[MAX][MAX],
 		cout << " ";
 	}
 
-	for (i = 1; i < _length; i++)
+	for (i = _length - 1; i > 0; i--)
 	{
-		_body[i].x = _prev[i - 1].x;	//snake di chuyen theo huong ban dau(7)
-		_body[i].y = _prev[i - 1].y;
+		_body[i].x = _body[i - 1].x;	//snake di chuyen theo huong ban dau(7)
+		_body[i].y = _body[i - 1].y;
 	}
 
 	supportLGBTComunity(); //yeah, we support LGBT community :v
@@ -92,29 +85,32 @@ void SnakeKun::update(unsigned short int& delay, MapData _map[MAX][MAX],
 			|| (Input::prevInput == SnakeDirection::UP && _direction == SnakeDirection::RIGHT))
 			cout << (char)Symbol::BOTTOM_RIGHT;
 		Input::prevInput = _direction;
-		gotoXY(_body[0].x, _body[0].y);
+
+		gotoXY(_head.x, _head.y);
 		supportLGBTComunity();
-		if (_direction == SnakeDirection::UP || _direction == SnakeDirection::DOWN)
-			cout << (char)Symbol::TALL_BLOCK;
-		else
-			cout << (char)Symbol::LONG_BLOCK;
+		cout << (char)Symbol::HEAD;
 	}
 	else
 	{
-		gotoXY(_body[0].x, _body[0].y);
+		gotoXY(_head.x, _head.y);
+		cout << (char)Symbol::HEAD;
+
+		gotoXY(_body[1].x, _body[1].y);
 		if (_direction == SnakeDirection::UP || _direction == SnakeDirection::DOWN)
 			cout << (char)Symbol::TALL_BLOCK;
 		else
 			cout << (char)Symbol::LONG_BLOCK;
 	}
+
 	//dua du lieu snake vao map(8)
+	_body[0] = _head;
 	for (i = 0; i < _length; i++)
 		_map[_body[i].x][_body[i].y] = MapData::SNAKE;
 
 	//neu ran di len/xuong thi giam toc do(9)
 	if (_direction == SnakeDirection::UP || _direction == SnakeDirection::DOWN)
 	{
-		delay_slow += (delay * 25) / 100;
+		delay_slow += (delay * 30) / 100;
 		Sleep(delay_slow);
 	}
 	else Sleep(delay);
@@ -174,10 +170,11 @@ bool SnakeKun::isAive()
 	return _isAlive;
 }
 
-void SnakeKun::supportLGBTComunity()
+Color SnakeKun::supportLGBTComunity()
 {
 	Color _c[6] = { Color::RED,Color::ORANGE,Color::YELLOW,Color::GREEN,Color::BLUE,Color::PURPLE };
 	setColor(_c[_curColor]);
 	_curColor++;
 	_curColor = (_curColor > 5) ? 0 : _curColor;
+	return _c[_curColor];
 }

@@ -5,15 +5,13 @@ class SnakeKun
 private:
 	int _length;
 	Coordinate _body[WIDTH * HEIGHT];
-	//dia chi tam thoi cua ran
-	Coordinate _prev[WIDTH * HEIGHT];
 	SnakeDirection _direction;
 	int _speed;
 	bool _isAlive;
 	GameMode _gameMode;
 	int _foodCounter;
 	int _curColor;
-	void supportLGBTComunity();
+	Color supportLGBTComunity();
 public:
 	SnakeKun() {}
 	SnakeKun(MapData _map[MAX][MAX]);

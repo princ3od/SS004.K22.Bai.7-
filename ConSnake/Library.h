@@ -44,8 +44,11 @@ enum Symbol
 	DOWN_KEY = 80,
 	RIGHT_KEY = 77,
 	LEFT_KEY = 75,
-	EXIT_KEY = 27
+	EXIT_KEY = 27,
 
+	HEAD = 254,
+	TALL_TAIL = 179,
+	LONG_TAIL = 196,
 };
 //bien mau
 enum class Color
@@ -55,7 +58,8 @@ enum class Color
 	BLUE = 2,
 	YELLOW = 3,
 	PURPLE = 4,
-	ORANGE = 5
+	ORANGE = 5,
+	WHITE = 6,
 };
 
 //game mode 
@@ -177,6 +181,9 @@ static void setColor(Color _color)
 	case Color::PURPLE:
 		SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_BLUE);
 		break;
+	case Color::WHITE:
+		SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN);
+		break;
 	}
 }
 
@@ -193,8 +200,8 @@ static void setFont()
 	//CONSOLE_FONT_INFOEX is defined in some windows header
 	GetCurrentConsoleFontEx(h, false, font);
 	//PCONSOLE_FONT_INFOEX is the same as CONSOLE_FONT_INFOEX*
-	font->dwFontSize.X = 180;
-	font->dwFontSize.Y = 20;
+	font->dwFontSize.X = 20;
+	font->dwFontSize.Y = 18;
 	SetCurrentConsoleFontEx(h, false, font);
 }
 static bool isOppositeDirection(SnakeDirection input1, SnakeDirection input2)
