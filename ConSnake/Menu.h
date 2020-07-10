@@ -4,10 +4,8 @@
 class Menu
 {
 public:
-    Menu();
-    ~Menu();
-    void StartMenu();
-    GameMode GamemodeMenu();
+    static int StartMenu();
+    static GameMode GamemodeMenu();
 };
 
 

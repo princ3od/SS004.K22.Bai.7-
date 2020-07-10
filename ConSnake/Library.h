@@ -18,13 +18,17 @@ struct Board
 struct Coordinate
 {
 	int x, y;
+	bool operator==(Coordinate b)
+	{
+		return (x == b.x) && (y == b.y);
+	}
 };
 enum Symbol
 {
-	TOP_LEFT = 187,
-	TOP_RIGHT = 201,
-	BOTTOM_LEFT = 188,
-	BOTTOM_RIGHT = 200,
+	BOTTOM_LEFT = 187,
+	TOP_LEFT = 188,
+	TOP_RIGHT = 200,
+	BOTTOM_RIGHT = 201,
 	LONG_BLOCK = 205,
 	TALL_BLOCK = 186,
 
@@ -34,7 +38,17 @@ enum Symbol
 	LONG_THIN_RIGHT_BLOCK = 221,
 	LONG_TOP_BLOCK = 220,
 	LONG_BOTTOM_BLOCK = 223,
-	APPLE = 153
+	APPLE = 153,
+
+	UP_KEY = 72,
+	DOWN_KEY = 80,
+	RIGHT_KEY = 77,
+	LEFT_KEY = 75,
+	EXIT_KEY = 27,
+
+	HEAD = 254,
+	TALL_TAIL = 179,
+	LONG_TAIL = 196,
 };
 //bien mau
 enum class Color
@@ -43,7 +57,9 @@ enum class Color
 	GREEN = 1,
 	BLUE = 2,
 	YELLOW = 3,
-	PURPLE = 4
+	PURPLE = 4,
+	ORANGE = 5,
+	WHITE = 6,
 };
 
 //game mode 
@@ -60,15 +76,9 @@ enum class MapData
 {
 	WALL = -2,
 	SNAKE = -1,
-	NOTHING = 0
+	NOTHING = 0,
+	FOOD = 1,
 };
-
-static bool operator == (MapData& s, const short int x)
-{
-	if (s == x)
-		return 1;
-	else return 0;
-}
 
 enum class SnakeDirection {
 	RIGHT = 0,
@@ -86,7 +96,6 @@ const short int BOARD_WIDTH = 37;
 const short int HEIGHT = 22;
 const short int INIT_SNAKE_LENGTH = 4;
 const short int INIT_FOOD_COUNTER = 0;
-const short int FOOD = 1;
 static short int item = (short int)MapData::NOTHING;
 
 //su dung cho cac windows func
@@ -103,8 +112,8 @@ static unsigned short int speed[5]{ 0, 34 , 74 , 0 };
 //(0, 1) = xuong
 namespace Input
 {
-	static SnakeDirection prevInput = SnakeDirection::LEFT;
-	static SnakeDirection userInput = SnakeDirection::LEFT;	//bien toan cuc de lay huong di chuyen cua ran
+	static SnakeDirection prevInput;
+	static SnakeDirection userInput;//bien toan cuc de lay huong di chuyen cua ran
 }
 static void gotoXY(int column, int row)
 {
@@ -155,13 +164,16 @@ static void setColor(Color _color)
 	switch (_color)
 	{
 	case Color::RED:
+		SetConsoleTextAttribute(h, FOREGROUND_RED);
+		break;
+	case Color::ORANGE:
 		SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
 		break;
 	case Color::GREEN:
-		SetConsoleTextAttribute(h, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+		SetConsoleTextAttribute(h, FOREGROUND_GREEN);
 		break;
 	case Color::BLUE:
-		SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+		SetConsoleTextAttribute(h, FOREGROUND_BLUE);
 		break;
 	case Color::YELLOW:
 		SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_GREEN);
@@ -169,45 +181,37 @@ static void setColor(Color _color)
 	case Color::PURPLE:
 		SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_BLUE);
 		break;
+	case Color::WHITE:
+		SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN);
+		break;
 	}
 }
 
 static void hideCursor()
 {
-	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_CURSOR_INFO info;
 	info.dwSize = 100;   info.bVisible = false;
-	SetConsoleCursorInfo(consoleHandle, &info);
+	SetConsoleCursorInfo(h, &info);
 }
-
-static bool oppositeDirection(SnakeDirection input1, SnakeDirection input2)
+static void setFont()
 {
-	if (input1 == SnakeDirection::LEFT && input2 != SnakeDirection::RIGHT)
-		return false;
-	if (input1 == SnakeDirection::RIGHT && input2 != SnakeDirection::LEFT)
-		return false;
-	if (input1 == SnakeDirection::UP && input2 != SnakeDirection::DOWN)
-		return false;
-	if (input1 == SnakeDirection::DOWN && input2 != SnakeDirection::UP)
-		return false;
-	return true;
+	PCONSOLE_FONT_INFOEX font = new CONSOLE_FONT_INFOEX();
+	font->cbSize = sizeof(CONSOLE_FONT_INFOEX);
+	//CONSOLE_FONT_INFOEX is defined in some windows header
+	GetCurrentConsoleFontEx(h, false, font);
+	//PCONSOLE_FONT_INFOEX is the same as CONSOLE_FONT_INFOEX*
+	font->dwFontSize.X = 20;
+	font->dwFontSize.Y = 18;
+	SetCurrentConsoleFontEx(h, false, font);
 }
-
-static void userInput(void* id)
+static bool isOppositeDirection(SnakeDirection input1, SnakeDirection input2)
 {
-	do
-	{
-		int c = _getch();
-		switch (c)
-		{
-		case 72: case 'w': case'W': Input::userInput = SnakeDirection::UP; break;
-		case 80: case 's': case'S': Input::userInput = SnakeDirection::DOWN; break;
-		case 77: case 'd': case'D': Input::userInput = SnakeDirection::RIGHT; break;
-		case 75: case 'a': case'A': Input::userInput = SnakeDirection::LEFT; break;
-		case 27:	    Input::userInput = SnakeDirection::EXIT; break;
-		}
-	} while (Input::userInput != SnakeDirection::EXIT && item >= 0);
-
-	_endthread();
-	return;
+	if ((input1 == SnakeDirection::LEFT && input2 == SnakeDirection::RIGHT)
+		|| (input1 == SnakeDirection::UP && input2 == SnakeDirection::DOWN)
+		|| (input2 == SnakeDirection::LEFT && input1 == SnakeDirection::RIGHT)
+		|| (input2 == SnakeDirection::UP && input1 == SnakeDirection::DOWN))
+		return true;
+	return false;
 }
+
+
