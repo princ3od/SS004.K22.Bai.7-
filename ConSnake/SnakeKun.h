@@ -22,6 +22,7 @@ public:
 	SnakeDirection getDirection();
 	int getSpeed();
 	bool isAive();
+	void getSnakeBody();
 
 };
 

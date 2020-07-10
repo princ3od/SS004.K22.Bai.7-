@@ -97,6 +97,58 @@ void SnakeKun::countFood(unsigned short int& delay)
     }
 }
 
+void SnakeKun::getSnakeBody()
+{
+    unsigned short _snakeLED;
+    _snakeLED = rand() % 8;
+    switch (_snakeLED)
+    {
+    case 0:
+        setColor(Color::RED); break;
+    case 1:
+        setColor(Color::ORANGE); break;
+    case 2:
+        setColor(Color::YELLOW); break;
+    case 3:
+        setColor(Color::GREEN); break;
+    case 4:
+        setColor(Color::BLUE); break;
+    case 5:
+        setColor(Color::CYAN); break;
+    case 6:
+        setColor(Color::PURPLE); break;
+    }
+    //doi dau snake cu thanh than minh(8)
+    if (Input::prevInput == SnakeDirection::UP && Input::userInput == SnakeDirection::RIGHT)
+        cout << char(TOP_RIGHT);
+    else if (Input::prevInput == SnakeDirection::DOWN && Input::userInput == SnakeDirection::RIGHT)
+        cout << char(BOTTOM_RIGHT);
+    else if (Input::prevInput == SnakeDirection::UP && Input::userInput == SnakeDirection::LEFT)
+        cout << char(TOP_LEFT);
+    else if (Input::prevInput == SnakeDirection::DOWN && Input::userInput == SnakeDirection::LEFT)
+        cout << char(BOTTOM_LEFT);
+    else if (Input::prevInput == SnakeDirection::RIGHT && Input::userInput == SnakeDirection::UP)
+        cout << char(BOTTOM_LEFT);
+    else if (Input::prevInput == SnakeDirection::RIGHT && Input::userInput == SnakeDirection::DOWN)
+        cout << char(TOP_LEFT);
+    else if (Input::prevInput == SnakeDirection::LEFT && Input::userInput == SnakeDirection::UP)
+        cout << char(BOTTOM_RIGHT);
+    else if (Input::prevInput == SnakeDirection::LEFT && Input::userInput == SnakeDirection::DOWN)
+        cout << char(TOP_RIGHT);
+    if (oppositeDirection(Input::prevInput, Input::userInput) == 0)
+        Input::prevInput = Input::userInput;
+    gotoXY(_body[0].x, _body[0].y);
+    if (Input::userInput == SnakeDirection::UP || Input::userInput == SnakeDirection::DOWN) //them dau snake moi vao
+    {
+        cout << char(TALL_BLOCK);
+        prevBlock = TALL_BLOCK;
+    }
+    else {
+        cout << char(LONG_BLOCK);
+        prevBlock = LONG_BLOCK;
+    }
+}
+
 void SnakeKun::setGameMode(GameMode _gm)
 {
     _gameMode = _gm;

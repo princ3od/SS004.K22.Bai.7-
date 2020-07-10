@@ -43,7 +43,9 @@ enum class Color
 	GREEN = 1,
 	BLUE = 2,
 	YELLOW = 3,
-	PURPLE = 4
+	PURPLE = 4,
+	ORANGE = 5,
+	CYAN = 6
 };
 
 //game mode 
@@ -86,8 +88,9 @@ const short int BOARD_WIDTH = 37;
 const short int HEIGHT = 22;
 const short int INIT_SNAKE_LENGTH = 4;
 const short int INIT_FOOD_COUNTER = 0;
-const short int FOOD = 1;
+const short int FOOD = 1; 
 static short int item = (short int)MapData::NOTHING;
+static short int prevBlock = Symbol::LONG_BLOCK;
 
 //su dung cho cac windows func
 static HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -96,6 +99,7 @@ static HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
 static short int dx[5] = { 1, 0, -1, 0 };
 static short int dy[5] = { 0, -1, 0, 1 };
 static unsigned short int speed[5]{ 0, 34 , 74 , 0 };
+
 
 //(1, 0) = phai
 //(0, -1) = len
@@ -155,19 +159,25 @@ static void setColor(Color _color)
 	switch (_color)
 	{
 	case Color::RED:
-		SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
+		SetConsoleTextAttribute(h, 4);
+		break;
+	case Color::ORANGE:
+		SetConsoleTextAttribute(h, 14);
+		break;
+	case Color::CYAN:
+		SetConsoleTextAttribute(h, 3);
 		break;
 	case Color::GREEN:
-		SetConsoleTextAttribute(h, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+		SetConsoleTextAttribute(h, 2);
 		break;
 	case Color::BLUE:
-		SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+		SetConsoleTextAttribute(h, 1);
 		break;
 	case Color::YELLOW:
-		SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_GREEN);
+		SetConsoleTextAttribute(h, 6);
 		break;
 	case Color::PURPLE:
-		SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_BLUE);
+		SetConsoleTextAttribute(h, 5);
 		break;
 	}
 }
