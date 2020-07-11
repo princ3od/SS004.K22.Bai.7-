@@ -9,8 +9,9 @@ private:
 	Food* _food;
 	MapData _map[MAX][MAX];
 	SnakeDirection userInput, prevInput;
+	void drawMap();
 public:
-	Scene();
+	Scene(MapData _fileMap[MAX][MAX]);
 	void run();
 	friend void UserInput(void* id);
 };

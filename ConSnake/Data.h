@@ -3,16 +3,14 @@
 class Data
 {
 private:
-	string _loseText[50];
-	int _highScore[10];
 	bool readHighScore(string _scoreBoardFile = "highscore.txt");
 	bool readLoseText(string _loseTextFile = "losetext.txt");
-	//int _map[][];
+	bool readMap(string _mapFile = "defaultmap.txt");
 public:
+	MapData _map[MAX][MAX];
+	string _loseText[50];
+	int _highScore[10];
 	bool readData(string _scoreBoardFile = "highscore.txt", string _loseTextFile = "losetext.txt");
-	bool save(int _newScore, string _scoreBoardFile = "scoreboard.txt");
-	string* getLoseText();
-	int* getHighScore();
-	//int** getMap();
+	bool save(int _newScore, string _scoreBoardFile = "highscore.txt");
 };
 

@@ -6,19 +6,19 @@ private:
 	int _length;
 	Coordinate _body[WIDTH * HEIGHT];
 	SnakeDirection _direction;
-	int _speed;
 	bool _isAlive;
-	GameMode _gameMode;
-	int _foodCounter;
+	GameDifficult _gameDifficult;
 	int _curColor;
+	int _delay;
+	int _bonus;
 	Color supportLGBTComunity();
 public:
+	int _score;
 	SnakeKun() {}
-	SnakeKun(MapData _map[MAX][MAX]);
-	void update(unsigned short int& delay, MapData _map[MAX][MAX], 
-		SnakeDirection userInput, SnakeDirection& prevInput,bool& _eated);
-	void setGameMode(GameMode _gm);
-	void countFood(unsigned short int&);
+	SnakeKun(MapData _map[MAX][MAX], GameDifficult _gd);
+	void update(MapData _map[MAX][MAX],
+		SnakeDirection userInput, SnakeDirection& prevInput, bool& _eated);
+	void countFood();
 	Coordinate getHead();
 	int getLength();
 	SnakeDirection getDirection();

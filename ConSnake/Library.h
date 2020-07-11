@@ -34,8 +34,8 @@ enum Symbol
 
 	LONG_BIG_BLOCK = 219,
 	SQUARE_BLOCK = 254,
-	LONG_THIN_LEFT_BLOCK = 222,
-	LONG_THIN_RIGHT_BLOCK = 221,
+	LONG_THIN_LEFT_BLOCK = 221,
+	LONG_THIN_RIGHT_BLOCK = 222,
 	LONG_TOP_BLOCK = 220,
 	LONG_BOTTOM_BLOCK = 223,
 	APPLE = 153,
@@ -45,6 +45,7 @@ enum Symbol
 	RIGHT_KEY = 77,
 	LEFT_KEY = 75,
 	EXIT_KEY = 27,
+	ENTER_KEY = 13,
 
 	HEAD = 254,
 	TALL_TAIL = 179,
@@ -62,13 +63,20 @@ enum class Color
 	WHITE = 6,
 };
 
-//game mode 
+//game difficult
+enum class GameDifficult
+{
+	EASY = 1,
+	NORMAL = 2,
+	HARD = 4,
+	SPECIAL = 8,
+};
+//game mode
 enum class GameMode
 {
-	EASY = 0,
-	NORMAL = 1,
-	HARD = 2,
-	SPECIAL = 3
+	CLASSICAL = 0,
+	CAMPAIGN = 1,
+
 };
 
 //thua neu gia tri am
@@ -91,9 +99,9 @@ enum class SnakeDirection {
 //constant
 const short int MAX_B = 11;
 const short int MAX = 114;
-const short int WIDTH = 77;
+const short int WIDTH = 80;
 const short int BOARD_WIDTH = 37;
-const short int HEIGHT = 22;
+const short int HEIGHT = 28;
 const short int INIT_SNAKE_LENGTH = 4;
 const short int INIT_FOOD_COUNTER = 0;
 static short int item = (short int)MapData::NOTHING;

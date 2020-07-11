@@ -1,17 +1,32 @@
 #include "SnakeKun.h"
 
-SnakeKun::SnakeKun(MapData _map[MAX][MAX])
+SnakeKun::SnakeKun(MapData _map[MAX][MAX], GameDifficult _gd)
 {
+	//khoi tao ban dau tuy do kho
+	_gameDifficult = _gd;
+	switch (_gameDifficult)
+	{
+	case GameDifficult::EASY:
+		_delay = 120;
+		break;
+	case GameDifficult::NORMAL:
+		_delay = 100;
+		break;
+	case GameDifficult::HARD:
+		_delay = 80;
+	}
 	_curColor = 0;
 	_direction = SnakeDirection::RIGHT;
 	_length = INIT_SNAKE_LENGTH;
-	_body[0] = { WIDTH / 2 + 1,HEIGHT / 2 };
+	_body[0] = { WIDTH / 2,HEIGHT / 2 };
 	gotoXY(_body[0].x, _body[0].y);
 	supportLGBTComunity();
-	cout << (char)Symbol::LONG_BLOCK;
+	cout << (char)Symbol::HEAD;
 
+	_isAlive = true;
 	_direction = SnakeDirection::RIGHT;
-	_foodCounter = INIT_FOOD_COUNTER;
+	_score = 0;
+	_bonus = ((int)_gameDifficult * 15);
 	for (int i = 1; i < _length; i++)
 	{
 		_body[i].x = _body[i - 1].x - dx[(int)_direction];
@@ -24,13 +39,13 @@ SnakeKun::SnakeKun(MapData _map[MAX][MAX])
 		_map[_body[i].x][_body[i].y] = MapData::SNAKE;
 }
 
-void SnakeKun::update(unsigned short int& delay, MapData _map[MAX][MAX],
+void SnakeKun::update(MapData _map[MAX][MAX],
 	SnakeDirection userInput, SnakeDirection& prevInput, bool& _eated)
 {
 	gotoXY(1, 1);
-	cout << _length;
+	cout << _length << " " << _score;
+	_bonus = (_bonus - 2 < 0) ? 0 : _bonus - 2;
 	int i;
-	int delay_slow = delay;
 
 	if (Input::userInput != SnakeDirection::EXIT && !isOppositeDirection(_direction, userInput))
 	{
@@ -43,16 +58,21 @@ void SnakeKun::update(unsigned short int& delay, MapData _map[MAX][MAX],
 	_head.x = _body[0].x + dx[(int)_direction];
 	_head.y = _body[0].y + dy[(int)_direction];
 
-	//neu tu dam vao minh thi gameover(3)
-	if (_map[_head.x][_head.y] == MapData::WALL
-		|| _map[_head.x][_head.y] == MapData::SNAKE)
-		_isAlive = false;
+	//snake di qua man hinh
+	if (_head.x < 0)
+		_head.x = WIDTH;
+	else if (_head.x > WIDTH)
+		_head.x = 0;
+	if (_head.y < 0)
+		_head.y = HEIGHT;
+	if (_head.y > HEIGHT)
+		_head.y = 0;
 
-	//neu an duoc thi cong diem(4)
+	//neu an duoc thi cong diem
 	if (_map[_head.x][_head.y] == MapData::FOOD)
 	{
 		_eated = true;
-		countFood(delay);
+		countFood();
 	}
 	else
 	{
@@ -64,9 +84,14 @@ void SnakeKun::update(unsigned short int& delay, MapData _map[MAX][MAX],
 
 	for (i = _length - 1; i > 0; i--)
 	{
-		_body[i].x = _body[i - 1].x;	//snake di chuyen theo huong ban dau(7)
+		_body[i].x = _body[i - 1].x;	//snake di chuyen theo huong ban dau
 		_body[i].y = _body[i - 1].y;
 	}
+
+	//neu tu dam vao minh thi gameover
+	if (_map[_head.x][_head.y] == MapData::WALL
+		|| _map[_head.x][_head.y] == MapData::SNAKE)
+		_isAlive = false;
 
 	supportLGBTComunity(); //yeah, we support LGBT community :v
 	if (Input::prevInput != _direction)
@@ -110,44 +135,26 @@ void SnakeKun::update(unsigned short int& delay, MapData _map[MAX][MAX],
 	//neu ran di len/xuong thi giam toc do(9)
 	if (_direction == SnakeDirection::UP || _direction == SnakeDirection::DOWN)
 	{
-		delay_slow += (delay * 30) / 100;
+		float heSo = (130 / _delay);
+		float delay_slow = _delay + ((_delay * 30) / 100) * heSo;
 		Sleep(delay_slow);
 	}
-	else Sleep(delay);
+	else Sleep(_delay);
 
 }
 
-void SnakeKun::countFood(unsigned short int& delay)
+void SnakeKun::countFood()
 {
-	//tinh diem khac nhau, tuy gamemode (5)
-	switch (_gameMode)
-	{
-	case GameMode::EASY:
-		_foodCounter += (_length * 5); break;
-	case GameMode::NORMAL:
-		_foodCounter += (_length * 10); break;
-	case GameMode::HARD:
-		_foodCounter += (_length * 15); break;
-	case GameMode::SPECIAL:
-		_foodCounter += (_length * (_length - 3)); break;
-	}
-	// tang kich thuoc ran khi ran an(6)
-	_length++;
-	//item = FOOD;
-	if (_gameMode == GameMode::SPECIAL && _length <= 104) {
-		//tang toc do trong gamemode special
-		--delay;
-	}
-}
-
-void SnakeKun::setGameMode(GameMode _gm)
-{
-	_gameMode = _gm;
+	_score += (rand() % ((int)_gameDifficult * 4)) + (int)_gameDifficult + _bonus;
+	_bonus = ((int)_gameDifficult * 15);
+	_length += 1;
+	if (_delay > 16 && ((_length - 3) % 2 == 0))
+		_delay -= (rand() % (int)_gameDifficult + 1);
 }
 
 Coordinate SnakeKun::getHead()
 {
-	return _body[1];
+	return _body[0];
 }
 
 int SnakeKun::getLength()
@@ -162,7 +169,7 @@ SnakeDirection SnakeKun::getDirection()
 
 int SnakeKun::getSpeed()
 {
-	return _speed;
+	return 216 - _delay;
 }
 
 bool SnakeKun::isAive()
