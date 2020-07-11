@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "Data.h"
 void UserInput(void* id)
 {
 	Scene* scene = (Scene*)id;
@@ -28,34 +29,58 @@ void UserInput(void* id)
 	return;
 }
 
-Scene::Scene()
+void Scene::drawMap()
+{
+	setColor(Color::WHITE);
+	for (int j = 0; j < HEIGHT + 1; j++)
+		for (int i = 0; i < WIDTH + 1; i++)
+			if (_map[i][j] == MapData::WALL)
+			{
+				gotoXY(i, j);
+				if (j == 0)
+					cout << (char)Symbol::LONG_TOP_BLOCK;
+				else if (j == HEIGHT)
+					cout << (char)Symbol::LONG_BOTTOM_BLOCK;
+				else if (i == 0)
+					cout << (char)Symbol::LONG_THIN_RIGHT_BLOCK;
+				else if (i == WIDTH)
+					cout << (char)Symbol::LONG_THIN_LEFT_BLOCK;
+				else
+					cout << char(Symbol::LONG_BIG_BLOCK);
+			}
+}
+
+Scene::Scene(MapData _fileMap[MAX][MAX])
 {
 	userInput = prevInput = SnakeDirection::RIGHT;
-	for (int i = 0; i < MAX; i++)
-		for (int j = 0; j < MAX; j++)
-			_map[i][j] = MapData::NOTHING;
-	_snake = new SnakeKun(_map);
+	for (int j = 0; j < MAX; j++)
+		for (int i = 0; i < MAX; i++)
+			_map[i][j] = _fileMap[i][j];
+	drawMap();
+	_snake = new SnakeKun(_map, GameDifficult::HARD);
 	_food = new Food(_map);
 }
 
 void Scene::run()
 {
+	Data _data;
 	_beginthread(UserInput, 0, this);
-	unsigned short int n = 100;
 	bool eated = false;
 	while (true)
 	{
-		_snake->update(n, _map, userInput, prevInput, eated);
+		_snake->update(_map, userInput, prevInput, eated);
 		if (eated)
 		{
 			eated = false;
 			_map[_food->get().x][_food->get().y] = MapData::NOTHING;
+			delete _food;
 			_food = new Food(_map);
 		}
 		if (!_snake->isAive())
 		{
 			gotoXY(2, 2);
 			cout << "Lose";
+			_data.save(_snake->_score);
 			break;
 		}
 	}

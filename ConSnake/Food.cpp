@@ -10,7 +10,8 @@ Food::Food(MapData map[MAX][MAX])
 	} while (map[_coord.x][_coord.y] != MapData::NOTHING);
 	map[_coord.x][_coord.y] = MapData::FOOD;
 	gotoXY(_coord.x, _coord.y);
-	setColor(Color::GREEN);
+	Color _foodColor = ((rand() % 10 + 1) > 5) ? Color::RED : Color::GREEN;
+	setColor(_foodColor);
 	cout << char(Symbol::APPLE);
 }
 Coordinate Food::get()

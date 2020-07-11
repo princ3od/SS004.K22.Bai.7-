@@ -5,7 +5,7 @@ class Menu
 {
 public:
     static int StartMenu();
-    static GameMode GamemodeMenu();
+    //static GameMode GamemodeMenu();
 };
 
 
