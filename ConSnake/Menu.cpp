@@ -1,4 +1,5 @@
 #include "Menu.h"
+#include "GamePlay.h"
 
 int Menu::StartMenu()
 {
@@ -36,21 +37,9 @@ int Menu::StartMenu()
 			Menu[_chosenSection] = 1;
 			break;
 		case '\r':
-			if (_chosenSection == 2)
-			{
-				setColor(Color::RED); //man hình ket thuc
-				gotoXY(WIDTH / 2 - 2, HEIGHT / 2 - 2); cout << "-------------------------" << endl;
-				gotoXY(WIDTH / 2 - 7, HEIGHT / 2 - 1); cout << "     |    GOOD BYE! (^O^)/   |" << endl;
-				gotoXY(WIDTH / 2 - 2, HEIGHT / 2); cout << "-------------------------" << endl;
-				gotoXY(WIDTH / 2 - 2, HEIGHT / 2 + 5);
-				_endthread();
-			}
-			else
 				return _chosenSection;
 			break;
 		}
-		if (_chosenSection == 3)
-			break;
 		setColor(Color::BLUE);
 		if (Menu[0] == 1)
 			setColor(Color::RED);
@@ -69,6 +58,28 @@ int Menu::StartMenu()
 		setColor(Color::BLUE);
 	}
 	return _chosenSection;
+}
+
+void Menu::Choices()
+{
+	short int _chosenSection = StartMenu();
+	if (_chosenSection == 0)
+	{
+		GamePlay::ChooseGameMode();
+	}
+	else if (_chosenSection == 1)
+	{
+
+	}
+	else if (_chosenSection == 2)
+	{
+		setColor(Color::RED); //man hình ket thuc
+		gotoXY(WIDTH / 2 - 2, HEIGHT / 2 - 2); cout << "-------------------------" << endl;
+		gotoXY(WIDTH / 2 - 7, HEIGHT / 2 - 1); cout << "     |    GOOD BYE! (^O^)/   |" << endl;
+		gotoXY(WIDTH / 2 - 2, HEIGHT / 2); cout << "-------------------------" << endl;
+		gotoXY(WIDTH / 2 - 2, HEIGHT / 2 + 5);
+		_endthread();
+	}
 }
 
 //GameMode Menu::GamemodeMenu() 

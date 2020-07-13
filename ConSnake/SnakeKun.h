@@ -1,5 +1,6 @@
 #pragma once
 #include "Library.h"
+static GameDifficult _gameDifficult;
 class SnakeKun
 {
 private:
@@ -7,7 +8,6 @@ private:
 	Coordinate _body[WIDTH * HEIGHT];
 	SnakeDirection _direction;
 	bool _isAlive;
-	GameDifficult _gameDifficult;
 	int _curColor;
 	int _delay;
 	int _bonus;
@@ -15,7 +15,7 @@ private:
 public:
 	int _score;
 	SnakeKun() {}
-	SnakeKun(MapData _map[MAX][MAX], GameDifficult _gd);
+	SnakeKun(MapData _map[MAX][MAX], GameDifficult _gameDifficult);
 	void update(MapData _map[MAX][MAX],
 		SnakeDirection userInput, SnakeDirection& prevInput, bool& _eated);
 	void countFood();

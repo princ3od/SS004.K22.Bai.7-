@@ -8,7 +8,7 @@ int main()
 	hideCursor();
 	Data _data;
 	cout << _data.readData();
-	Menu::StartMenu();
+	Menu::Choices();
 	cout << (char)Symbol::BOTTOM_RIGHT << (char)Symbol::LONG_BLOCK << (char)Symbol::BOTTOM_LEFT << endl;
 	cout << (char)Symbol::TALL_BLOCK << " " << (char)Symbol::TALL_BLOCK << endl;
 	cout << (char)Symbol::TOP_RIGHT << (char)Symbol::LONG_BLOCK << (char)Symbol::TOP_LEFT << endl;
