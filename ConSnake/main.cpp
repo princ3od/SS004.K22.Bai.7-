@@ -1,4 +1,5 @@
 #include "Library.h"
+#include "Menu.h"
 #include "Scene.h"
 #include "Data.h"
 int main()
@@ -7,7 +8,7 @@ int main()
 	hideCursor();
 	Data _data;
 	cout << _data.readData();
-	//cout << Menu::StartMenu();
+	Menu::StartMenu();
 	cout << (char)Symbol::BOTTOM_RIGHT << (char)Symbol::LONG_BLOCK << (char)Symbol::BOTTOM_LEFT << endl;
 	cout << (char)Symbol::TALL_BLOCK << " " << (char)Symbol::TALL_BLOCK << endl;
 	cout << (char)Symbol::TOP_RIGHT << (char)Symbol::LONG_BLOCK << (char)Symbol::TOP_LEFT << endl;

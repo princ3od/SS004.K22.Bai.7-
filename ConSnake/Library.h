@@ -61,6 +61,7 @@ enum class Color
 	PURPLE = 4,
 	ORANGE = 5,
 	WHITE = 6,
+	GRAY = 7
 };
 
 //game difficult
@@ -192,6 +193,10 @@ static void setColor(Color _color)
 	case Color::WHITE:
 		SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN);
 		break;
+	case Color::GRAY:
+		SetConsoleTextAttribute(h, 7);
+		break;
+
 	}
 }
 
