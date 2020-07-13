@@ -7,6 +7,7 @@ public:
     static int StartMenu();
     //static GameMode GamemodeMenu();
     int GameMode();
+    static bool isLGBT_;
 };
 
 

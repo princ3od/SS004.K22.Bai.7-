@@ -2,20 +2,32 @@
 
 int Menu::StartMenu()
 {
+	isLGBT_ = true;
 	int _chosenSection;
 	bool Menu[4];
 	Menu[0] = 1;
 	Menu[1] = 0;
 	Menu[2] = 0;
+	Menu[3] = 0;
 	setColor(Color::RED);
 	gotoXY(WIDTH / 2 - 4, HEIGHT / 2 - 2);
 	cout << "                 [PLAY]              " << endl;
 	setColor(Color::BLUE);
 	gotoXY(WIDTH / 2 - 4, HEIGHT / 2);
 	cout << "              [SCOREBOARD]           " << endl;
-	gotoXY(WIDTH / 2 - 4, HEIGHT / 2 + 2);
+	gotoXY(WIDTH / 2 - 4, HEIGHT / 2);
+	cout << "              [LGBTMODE]	";
+	if (isLGBT_) {
+		setColor(Color::YELLOW);
+		cout << "ON           " << endl;
+	}
+	else {
+		setColor(Color::BLUE);
+		cout << "OFF           " << endl;
+	}
+	gotoXY(WIDTH / 2 - 4, HEIGHT / 2 + 4);
 	cout << "                 [EXIT]              " << endl;
-	for (_chosenSection = 0; _chosenSection < 3;)
+	for (_chosenSection = 0; _chosenSection < 4;)
 	{
 		int j = _getch();
 		clearScreen();
@@ -62,16 +74,30 @@ int Menu::StartMenu()
 		gotoXY(WIDTH / 2 - 4, HEIGHT / 2);
 		cout << "              [SCOREBOARD]           " << endl;
 		setColor(Color::BLUE);
-		if (Menu[2] == 1)
+		if (Menu[2]) {
 			setColor(Color::RED);
-		gotoXY(WIDTH / 2 - 4, HEIGHT / 2 + 2);
-		cout << "                 [EXIT]              " << endl;
+			isLGBT_ = !isLGBT_;
+		}
+		gotoXY(WIDTH / 2 - 4, HEIGHT / 2);
+		cout << "              [LGBTMODE]	";
+		if (isLGBT_) {
+			setColor(Color::YELLOW);
+			cout << "ON           " << endl;
+		}
+		else {
+			setColor(Color::BLUE);
+			cout << "OFF           " << endl;
+		}
 		setColor(Color::BLUE);
+		if (Menu[3] == 1)
+			setColor(Color::RED);
+		gotoXY(WIDTH / 2 - 4, HEIGHT / 2 + 4);
+		cout << "                 [EXIT]              " << endl;
 	}
 	return _chosenSection;
 }
 
-//GameMode Menu::GamemodeMenu() 
+//GameMode Menu::GamemodeMenu()
 //{
 //	bool Mode[5]; Mode[0] = 0; Mode[1] = 0; Mode[2] = 0; Mode[3] = 0;
 //	setColor(Color::GREEN);
