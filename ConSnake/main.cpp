@@ -1,7 +1,7 @@
 #include "Library.h"
 #include "Menu.h"
-#include "Scene.h"
 #include "Data.h"
+#include "Scene.h"
 int main()
 {
 	setFont();
