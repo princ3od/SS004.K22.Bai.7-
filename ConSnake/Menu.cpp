@@ -15,7 +15,7 @@ int Menu::StartMenu()
 	setColor(Color::BLUE);
 	gotoXY(WIDTH / 2 - 4, HEIGHT / 2);
 	cout << "              [SCOREBOARD]           " << endl;
-	gotoXY(WIDTH / 2 - 4, HEIGHT / 2);
+	gotoXY(WIDTH / 2 - 4, HEIGHT / 2 + 2);
 	cout << "              [LGBTMODE]	";
 	if (isLGBT_) {
 		setColor(Color::YELLOW);
@@ -25,6 +25,7 @@ int Menu::StartMenu()
 		setColor(Color::BLUE);
 		cout << "OFF           " << endl;
 	}
+	setColor(Color::BLUE);
 	gotoXY(WIDTH / 2 - 4, HEIGHT / 2 + 4);
 	cout << "                 [EXIT]              " << endl;
 	for (_chosenSection = 0; _chosenSection < 4;)
@@ -37,18 +38,18 @@ int Menu::StartMenu()
 			Menu[_chosenSection] = 0;
 			--_chosenSection;
 			if (_chosenSection < 0)
-				_chosenSection = 2;
+				_chosenSection = 3;
 			Menu[_chosenSection] = 1;
 			break;
 		case (int)Symbol::DOWN_KEY:
 			Menu[_chosenSection] = 0;
 			++_chosenSection;
-			if (_chosenSection > 2)
+			if (_chosenSection > 3)
 				_chosenSection = 0;
 			Menu[_chosenSection] = 1;
 			break;
 		case '\r':
-			if (_chosenSection == 2)
+			if (_chosenSection == 3)
 			{
 				setColor(Color::RED); //man hình ket thuc
 				gotoXY(WIDTH / 2 - 2, HEIGHT / 2 - 2); cout << "-------------------------" << endl;
@@ -57,12 +58,13 @@ int Menu::StartMenu()
 				gotoXY(WIDTH / 2 - 2, HEIGHT / 2 + 5);
 				_endthread();
 			}
+			if (_chosenSection == 2) {
+				isLGBT_ = !isLGBT_;
+			}
 			else
 				return _chosenSection;
 			break;
 		}
-		if (_chosenSection == 3)
-			break;
 		setColor(Color::BLUE);
 		if (Menu[0] == 1)
 			setColor(Color::RED);
@@ -74,11 +76,9 @@ int Menu::StartMenu()
 		gotoXY(WIDTH / 2 - 4, HEIGHT / 2);
 		cout << "              [SCOREBOARD]           " << endl;
 		setColor(Color::BLUE);
-		if (Menu[2]) {
+		if (Menu[2])
 			setColor(Color::RED);
-			isLGBT_ = !isLGBT_;
-		}
-		gotoXY(WIDTH / 2 - 4, HEIGHT / 2);
+		gotoXY(WIDTH / 2 - 4, HEIGHT / 2 + 2);
 		cout << "              [LGBTMODE]	";
 		if (isLGBT_) {
 			setColor(Color::YELLOW);
