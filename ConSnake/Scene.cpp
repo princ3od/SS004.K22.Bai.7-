@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include "Data.h"
+
 void UserInput(void* id)
 {
 	Scene* scene = (Scene*)id;

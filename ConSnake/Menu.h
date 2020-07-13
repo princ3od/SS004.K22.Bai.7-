@@ -1,11 +1,12 @@
 #pragma once
 #include "Library.h"
-
-class Menu
+#include "GamePlay.h"
+class Menu: public GamePlay
 {
 public:
     static int StartMenu();
     //static GameMode GamemodeMenu();
+    int GameMode();
 };
 
 
