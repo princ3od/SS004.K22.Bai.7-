@@ -1,9 +1,2 @@
-﻿  Data.cpp
-  Food.cpp
-C:\Users\asus\Desktop\Git\SS004.K22.Bai.7-\ConSnake\Food.cpp(5,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Menu.cpp
-  SnakeKun.cpp
-  main.cpp
-  Generating Code...
-C:\Users\asus\Desktop\Git\SS004.K22.Bai.7-\ConSnake\Library.h(71): warning C4717: 'operator==': recursive on all control paths, function will cause runtime stack overflow
-  ConSnake.vcxproj -> C:\Users\asus\Desktop\Git\SS004.K22.Bai.7-\ConSnake\x64\Debug\ConSnake.exe
+﻿  Menu.cpp
+  ConSnake.vcxproj -> C:\Users\ltl13\OneDrive\Documents\GitHub\SS004.K22.Bai.7-\ConSnake\x64\Debug\ConSnake.exe

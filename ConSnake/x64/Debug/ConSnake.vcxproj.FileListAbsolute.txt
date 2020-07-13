@@ -1,2 +1,4 @@
 C:\Users\asus\Desktop\Git\SS004.K22.Bai.7-\ConSnake\x64\Debug\ConSnake.exe
 C:\Users\asus\Desktop\Git\SS004.K22.Bai.7-\ConSnake\x64\Debug\ConSnake.pdb
+C:\Users\ltl13\OneDrive\Documents\GitHub\SS004.K22.Bai.7-\ConSnake\x64\Debug\ConSnake.exe
+C:\Users\ltl13\OneDrive\Documents\GitHub\SS004.K22.Bai.7-\ConSnake\x64\Debug\ConSnake.pdb

@@ -16,13 +16,13 @@ int Menu::StartMenu()
 	gotoXY(WIDTH / 2 - 4, HEIGHT / 2);
 	cout << "              [SCOREBOARD]           " << endl;
 	gotoXY(WIDTH / 2 - 4, HEIGHT / 2 + 2);
-	cout << "              [LGBTMODE]	";
+	cout << "               [LGBTMODE] ";
 	if (isLGBT_) {
 		setColor(Color::YELLOW);
 		cout << "ON           " << endl;
 	}
 	else {
-		setColor(Color::BLUE);
+		setColor(Color::PURPLE);
 		cout << "OFF           " << endl;
 	}
 	setColor(Color::BLUE);
@@ -79,13 +79,13 @@ int Menu::StartMenu()
 		if (Menu[2])
 			setColor(Color::RED);
 		gotoXY(WIDTH / 2 - 4, HEIGHT / 2 + 2);
-		cout << "              [LGBTMODE]	";
+		cout << "               [LGBTMODE] ";
 		if (isLGBT_) {
 			setColor(Color::YELLOW);
 			cout << "ON           " << endl;
 		}
 		else {
-			setColor(Color::BLUE);
+			setColor(Color::PURPLE);
 			cout << "OFF           " << endl;
 		}
 		setColor(Color::BLUE);
