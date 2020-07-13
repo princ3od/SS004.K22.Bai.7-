@@ -1,12 +1,12 @@
 #pragma once
 #include "Library.h"
+#include "SnakeKun.h"
 
+static short int _level;
 class GamePlay
 {
-	static short int _level;
 public:
-	short int Campaign();
-	void Classic();
-	void Endless();
-	void setupLevel();
+	static short int Campaign();
+	static short int Classic();
+	static short int ChooseGameMode();
 };
