@@ -30,6 +30,19 @@ void UserInput(void* id)
 	return;
 }
 
+void Scene::drawFakeWall()
+{
+	setColor(Color::WHITE);
+	for (int i = 0; i < HEIGHT + 1; i++)
+	{ 
+
+	}
+	for (int i = 0; i < WIDTH + 1; i++)
+	{
+
+	}
+}
+
 void Scene::drawMap()
 {
 	setColor(Color::WHITE);
@@ -51,14 +64,17 @@ void Scene::drawMap()
 			}
 }
 
-Scene::Scene(MapData _fileMap[MAX][MAX])
+Scene::Scene(MapData _fileMap[MAX][MAX], GameMode gameMode, short int level, GameDifficult gameDiff)
 {
+	_gd = gameDiff;
+	_gm = gameMode;
+	_lv = level;
 	userInput = prevInput = SnakeDirection::RIGHT;
 	for (int j = 0; j < MAX; j++)
 		for (int i = 0; i < MAX; i++)
 			_map[i][j] = _fileMap[i][j];
 	drawMap();
-	_snake = new SnakeKun(_map, GameDifficult::HARD);
+	_snake = new SnakeKun(_map, _gd);
 	_food = new Food(_map);
 }
 
@@ -82,6 +98,7 @@ void Scene::run()
 			gotoXY(2, 2);
 			cout << "Lose";
 			_data.save(_snake->_score);
+			delete _snake;
 			break;
 		}
 	}

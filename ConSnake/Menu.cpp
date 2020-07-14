@@ -1,6 +1,4 @@
 #include "Menu.h"
-#include "GamePlay.h"
-
 int Menu::StartMenu()
 {
 	int _chosenSection;
@@ -60,14 +58,12 @@ int Menu::StartMenu()
 	return _chosenSection;
 }
 
-void Menu::Choices()
+void Menu::Choices(short int &level, GameDifficult&_gd, GameMode& _gm, unsigned short int _unlock)
 {
-	short int level;
-	GameDifficult _gd;
 	short int _chosenSection = StartMenu();
 	if (_chosenSection == 0)
 	{
-		GamePlay::ChooseGameMode(level,_gd);
+		_gm = GamePlay::ChooseGameMode(level,_gd,_unlock);
 	}
 	else if (_chosenSection == 1)
 	{

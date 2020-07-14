@@ -1,11 +1,10 @@
 #include "GamePlay.h"
 
-short int GamePlay::Campaign()
+short int GamePlay::Campaign(unsigned short int _unlock)
 {
 	int _chosenSection;
 	unsigned short int i;
 	bool Menu[10] = { 1,0,0,0,0,0,0,0,0,0 };
-	unsigned short int _unlock = 0;
 	setColor(Color::RED);
 	gotoXY(WIDTH / 2 - 4, 5);
 	cout << "                 [Level 1]              " << endl;
@@ -131,7 +130,7 @@ short int GamePlay::Classic()
 	return _chosenSection;
 }
 
-GameMode GamePlay::ChooseGameMode(short int &level,GameDifficult &_gd)
+GameMode GamePlay::ChooseGameMode(short int &level,GameDifficult &_gd, unsigned short int _unlock)
 {
 	GameMode _gm;
 	int _chosenSection;
@@ -191,7 +190,7 @@ GameMode GamePlay::ChooseGameMode(short int &level,GameDifficult &_gd)
 	choose:
 	if (_chosenSection == 0)
 	{
-		level = Campaign();
+		level = Campaign(_unlock);
 		_gm = GameMode::CAMPAIGN;
 		
 	}
