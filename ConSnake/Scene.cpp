@@ -4,9 +4,10 @@
 void UserInput(void* id)
 {
 	Scene* scene = (Scene*)id;
+	int c = 2;
 	do
 	{
-		int c = _getch();
+		c = _getch();
 		switch (c)
 		{
 		case (int)Symbol::UP_KEY: case 'w': case'W':
@@ -25,9 +26,8 @@ void UserInput(void* id)
 			scene->userInput = SnakeDirection::EXIT;
 			break;
 		}
-	} while (scene->userInput != SnakeDirection::EXIT );
+	} while (scene->userInput != SnakeDirection::EXIT);
 	_endthread();
-	return;
 }
 
 void Scene::drawMap()
@@ -51,21 +51,21 @@ void Scene::drawMap()
 			}
 	setColor(Color::GRAY);
 	for (int j = 0; j < HEIGHT + 1; j++)
-		{
-			gotoXY(WIDTH + 1, j);
-			cout << (char)Symbol::TALL_BLOCK;
-		}
+	{
+		gotoXY(WIDTH + 1, j);
+		cout << (char)Symbol::TALL_BLOCK;
+	}
 	for (int i = 0; i < WIDTH + 1; i++)
-		{
-			gotoXY(i, HEIGHT + 1);
-			cout << (char)Symbol::LONG_BLOCK;
-		}
+	{
+		gotoXY(i, HEIGHT + 1);
+		cout << (char)Symbol::LONG_BLOCK;
+	}
 	gotoXY(WIDTH + 1, HEIGHT + 1);
 	cout << (char)Symbol::TOP_LEFT;
 
 }
 
-Scene::Scene(MapData _fileMap[MAX][MAX], GameMode gameMode, short int level, GameDifficult gameDiff,bool& _islgbt)
+Scene::Scene(MapData _fileMap[MAX][MAX], GameMode gameMode, short int level, GameDifficult gameDiff, bool& _islgbt)
 {
 	_gd = gameDiff;
 	_gm = gameMode;
@@ -96,10 +96,10 @@ void Scene::run()
 		if (!_snake->isAive())
 		{
 			gotoXY(2, 2);
-			cout << "Lose";
+			cout << "Press ESC key twice to back to main menu.";
+			_getch();
 			DataControl::save(_snake->_score, GameMode::CLASSICAL);
 			delete _snake;
-			_endthread;
 			break;
 		}
 	}

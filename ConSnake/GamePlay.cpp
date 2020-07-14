@@ -15,8 +15,8 @@ short int GamePlay::Campaign(unsigned short int _unlock)
 			setColor(Color::BLUE);
 		}
 		else setColor(Color::GRAY);
-		gotoXY(WIDTH / 2 - 4, 5+ i*2);
-		cout << "                 [Level "<<i+1<<"]              " << endl;
+		gotoXY(WIDTH / 2 - 4, 5 + i * 2);
+		cout << "                 [Level " << i + 1 << "]              " << endl;
 	}
 	for (_chosenSection = 0; _chosenSection < 10;)
 	{
@@ -32,12 +32,12 @@ short int GamePlay::Campaign(unsigned short int _unlock)
 			Menu[_chosenSection] = 1;
 			break;
 		case (int)Symbol::DOWN_KEY:
-				Menu[_chosenSection] = 0;
-				++_chosenSection;
-				if (_chosenSection > _unlock)
-					_chosenSection = 0;
-				Menu[_chosenSection] = 1;
-				break;
+			Menu[_chosenSection] = 0;
+			++_chosenSection;
+			if (_chosenSection > _unlock)
+				_chosenSection = 0;
+			Menu[_chosenSection] = 1;
+			break;
 		case '\r':
 			_level = _chosenSection;
 			return _level;
@@ -47,13 +47,13 @@ short int GamePlay::Campaign(unsigned short int _unlock)
 		{
 			if (_unlock >= i)
 			{
-			setColor(Color::BLUE);
+				setColor(Color::BLUE);
 			}
 			else setColor(Color::GRAY);
-		if (_chosenSection == i)
-		setColor(Color::RED);
-		gotoXY(WIDTH / 2 - 4, 5+ i*2);
-		cout << "                 [Level "<<i+1<<"]              " << endl;
+			if (_chosenSection == i)
+				setColor(Color::RED);
+			gotoXY(WIDTH / 2 - 4, 5 + i * 2);
+			cout << "                 [Level " << i + 1 << "]              " << endl;
 		}
 	}
 	return _level;
@@ -72,7 +72,7 @@ short int GamePlay::Classic()
 	setColor(Color::BLUE);
 	cout << "[NORMAL]          ";
 	cout << "[HARD]           ";
-	gotoXY(WIDTH / 2+2, HEIGHT / 2 + 4);
+	gotoXY(WIDTH / 2 + 2, HEIGHT / 2 + 4);
 	setColor(Color::GREEN);
 	cout << "GAME MODE FOR CHILDREN ";
 	for (_chosenSection = 0; _chosenSection < 3;)
@@ -96,41 +96,41 @@ short int GamePlay::Classic()
 			Menu[_chosenSection] = 1;
 			break;
 		case '\r':
-			return _chosenSection;
+			return _chosenSection + 1;
 		}
 		setColor(Color::BLUE);
 		if (Menu[0] == 1)
-		setColor(Color::GREEN);
-		gotoXY(WIDTH / 2 - 6 , HEIGHT / 2);
+			setColor(Color::GREEN);
+		gotoXY(WIDTH / 2 - 6, HEIGHT / 2);
 		cout << "[EASY]           ";
 		setColor(Color::BLUE);
 		if (Menu[1] == 1)
-		setColor(Color::YELLOW);
+			setColor(Color::YELLOW);
 		cout << "[NORMAL]          ";
 		setColor(Color::BLUE);
 		if (Menu[2] == 1)
-		setColor(Color::RED);
+			setColor(Color::RED);
 		cout << "[HARD]           ";
 
-	gotoXY(WIDTH / 2 + 2, HEIGHT / 2 + 4); //xuat giai thich gamemode
-	if (Menu[0] == 1) {
-		setColor(Color::GREEN);
-		cout << "GAME MODE FOR CHILDREN ";
-	}
-	if (Menu[1] == 1) {
-		setColor(Color::YELLOW);
-		cout << "GAME MODE FOR NORMIES ";
-	}
-	if (Menu[2] == 1) {
+		gotoXY(WIDTH / 2 + 2, HEIGHT / 2 + 4); //xuat giai thich gamemode
+		if (Menu[0] == 1) {
+			setColor(Color::GREEN);
+			cout << "GAME MODE FOR CHILDREN ";
+		}
+		if (Menu[1] == 1) {
+			setColor(Color::YELLOW);
+			cout << "GAME MODE FOR NORMIES ";
+		}
+		if (Menu[2] == 1) {
 			setColor(Color::RED);
 			cout << "GAME MODE FOR MADLADS ";
 		}
 
 	}
-	return _chosenSection;
+	return _chosenSection + 1;
 }
 
-GameMode GamePlay::ChooseGameMode(short int &level,GameDifficult &_gd)
+GameMode GamePlay::ChooseGameMode(short int& level, GameDifficult& _gd)
 {
 	GameMode _gm;
 	int _chosenSection;
@@ -167,7 +167,7 @@ GameMode GamePlay::ChooseGameMode(short int &level,GameDifficult &_gd)
 			Menu[_chosenSection] = 1;
 			break;
 		case '\r':
-			 goto choose;
+			goto choose;
 		}
 		setColor(Color::BLUE);
 		if (Menu[0] == 1)
@@ -187,12 +187,12 @@ GameMode GamePlay::ChooseGameMode(short int &level,GameDifficult &_gd)
 		setColor(Color::BLUE);
 	}
 
-	choose:
+choose:
 	if (_chosenSection == 0)
 	{
 		level = Campaign(0);
 		_gm = GameMode::CAMPAIGN;
-		
+
 	}
 	else if (_chosenSection == 1)
 	{

@@ -71,9 +71,9 @@ enum class Color
 //game difficult
 enum class GameDifficult
 {
-	EASY = 0,
-	NORMAL = 1,
-	HARD = 2,
+	EASY = 1,
+	NORMAL = 2,
+	HARD = 3,
 };
 //game mode
 enum class GameMode
