@@ -197,7 +197,7 @@ static void setColor(Color _color)
 		SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN);
 		break;
 	case Color::GRAY:
-		SetConsoleTextAttribute(h, 7);
+		SetConsoleTextAttribute(h, 8);
 		break;
 
 	}

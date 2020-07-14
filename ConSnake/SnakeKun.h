@@ -1,5 +1,6 @@
 #pragma once
 #include "Library.h"
+#include "Menu.h"
 static GameDifficult _gameDifficult;
 class SnakeKun
 {
@@ -11,11 +12,11 @@ private:
 	int _curColor;
 	int _delay;
 	int _bonus;
-	Color supportLGBTComunity();
+	Color supportLGBTComunity(bool isLGBT_);
 public:
 	int _score;
 	SnakeKun() {}
-	SnakeKun(MapData _map[MAX][MAX], GameDifficult _gameDifficult);
+	SnakeKun(MapData _map[MAX][MAX], GameDifficult _gameDifficult,bool _islgbt);
 	void update(MapData _map[MAX][MAX],
 		SnakeDirection userInput, SnakeDirection& prevInput, bool& _eated);
 	void countFood();

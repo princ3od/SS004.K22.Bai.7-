@@ -1,6 +1,6 @@
 #include "SnakeKun.h"
-
-SnakeKun::SnakeKun(MapData _map[MAX][MAX], GameDifficult _gd)
+#include "Menu.h"
+SnakeKun::SnakeKun(MapData _map[MAX][MAX], GameDifficult _gd, bool isLGBT_)
 {
 	//khoi tao ban dau tuy do kho
 	_gameDifficult = _gd;
@@ -20,7 +20,7 @@ SnakeKun::SnakeKun(MapData _map[MAX][MAX], GameDifficult _gd)
 	_length = INIT_SNAKE_LENGTH;
 	_body[0] = { WIDTH / 2,HEIGHT / 2 };
 	gotoXY(_body[0].x, _body[0].y);
-	supportLGBTComunity();
+	supportLGBTComunity(isLGBT_);
 	cout << (char)Symbol::HEAD;
 
 	_isAlive = true;
@@ -32,15 +32,14 @@ SnakeKun::SnakeKun(MapData _map[MAX][MAX], GameDifficult _gd)
 		_body[i].x = _body[i - 1].x - dx[(int)_direction];
 		_body[i].y = _body[i - 1].y - dy[(int)_direction];
 		gotoXY(_body[i].x, _body[i].y);
-		supportLGBTComunity();
+		supportLGBTComunity(isLGBT_);
 		cout << (char)Symbol::LONG_BLOCK;
 	}
 	for (int i = 0; i < _length; i++)
 		_map[_body[i].x][_body[i].y] = MapData::SNAKE;
 }
 
-void SnakeKun::update(MapData _map[MAX][MAX],
-	SnakeDirection userInput, SnakeDirection& prevInput, bool& _eated)
+void SnakeKun::update(MapData _map[MAX][MAX],SnakeDirection userInput, SnakeDirection& prevInput, bool& _eated)
 {
 	gotoXY(1, 1);
 	cout << _length << " " << _score;
@@ -93,7 +92,7 @@ void SnakeKun::update(MapData _map[MAX][MAX],
 		|| _map[_head.x][_head.y] == MapData::SNAKE)
 		_isAlive = false;
 
-	supportLGBTComunity(); //yeah, we support LGBT community :v
+	supportLGBTComunity(isLGBT_); //yeah, we support LGBT community :v
 	if (Input::prevInput != _direction)
 	{
 		gotoXY(_body[1].x, _body[1].y);
@@ -112,7 +111,7 @@ void SnakeKun::update(MapData _map[MAX][MAX],
 		Input::prevInput = _direction;
 
 		gotoXY(_head.x, _head.y);
-		supportLGBTComunity();
+		supportLGBTComunity(isLGBT_);
 		cout << (char)Symbol::HEAD;
 	}
 	else
@@ -136,7 +135,7 @@ void SnakeKun::update(MapData _map[MAX][MAX],
 	if (_direction == SnakeDirection::UP || _direction == SnakeDirection::DOWN)
 	{
 		float heSo = (130 / _delay);
-		float delay_slow = _delay + ((_delay * 30) / 100) * heSo;
+		float delay_slow = _delay + ((_delay * 35) / 100) * heSo;
 		Sleep(delay_slow);
 	}
 	else Sleep(_delay);
@@ -177,8 +176,13 @@ bool SnakeKun::isAive()
 	return _isAlive;
 }
 
-Color SnakeKun::supportLGBTComunity()
+Color SnakeKun::supportLGBTComunity(bool isLGBT_)
 {
+	if (!isLGBT_)
+	{
+		setColor(Color::WHITE);
+		return (Color::WHITE);
+	}
 	Color _c[6] = { Color::RED,Color::ORANGE,Color::YELLOW,Color::GREEN,Color::BLUE,Color::PURPLE };
 	setColor(_c[_curColor]);
 	_curColor++;

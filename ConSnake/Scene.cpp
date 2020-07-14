@@ -25,7 +25,7 @@ void UserInput(void* id)
 			scene->userInput = SnakeDirection::EXIT;
 			break;
 		}
-	} while (scene->userInput != SnakeDirection::EXIT);
+	} while (scene->userInput != SnakeDirection::EXIT );
 	_endthread();
 	return;
 }
@@ -49,16 +49,33 @@ void Scene::drawMap()
 				else
 					cout << char(Symbol::LONG_BIG_BLOCK);
 			}
+	setColor(Color::GRAY);
+	for (int j = 0; j < HEIGHT + 1; j++)
+		{
+			gotoXY(WIDTH + 1, j);
+			cout << (char)Symbol::TALL_BLOCK;
+		}
+	for (int i = 0; i < WIDTH + 1; i++)
+		{
+			gotoXY(i, HEIGHT + 1);
+			cout << (char)Symbol::LONG_BLOCK;
+		}
+	gotoXY(WIDTH + 1, HEIGHT + 1);
+	cout << (char)Symbol::TOP_LEFT;
+
 }
 
-Scene::Scene(MapData _fileMap[MAX][MAX])
+Scene::Scene(MapData _fileMap[MAX][MAX], GameMode gameMode, short int level, GameDifficult gameDiff,bool& _islgbt)
 {
+	_gd = gameDiff;
+	_gm = gameMode;
+	_lv = level;
 	userInput = prevInput = SnakeDirection::RIGHT;
 	for (int j = 0; j < MAX; j++)
 		for (int i = 0; i < MAX; i++)
 			_map[i][j] = _fileMap[i][j];
 	drawMap();
-	_snake = new SnakeKun(_map, GameDifficult::HARD);
+	_snake = new SnakeKun(_map, _gd, _islgbt);
 	_food = new Food(_map);
 }
 
@@ -80,6 +97,8 @@ void Scene::run()
 		{
 			gotoXY(2, 2);
 			cout << "Lose";
+			_data.save(_snake->_score);
+			delete _snake;
 			break;
 		}
 	}
