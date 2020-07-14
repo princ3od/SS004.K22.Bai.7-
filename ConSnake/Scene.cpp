@@ -97,8 +97,9 @@ void Scene::run()
 		{
 			gotoXY(2, 2);
 			cout << "Lose";
-			_data.save(_snake->_score);
+			DataControl::save(_snake->_score, GameMode::CLASSICAL);
 			delete _snake;
+			_endthread;
 			break;
 		}
 	}

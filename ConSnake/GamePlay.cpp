@@ -130,7 +130,7 @@ short int GamePlay::Classic()
 	return _chosenSection;
 }
 
-GameMode GamePlay::ChooseGameMode(short int &level,GameDifficult &_gd, unsigned short int _unlock)
+GameMode GamePlay::ChooseGameMode(short int &level,GameDifficult &_gd)
 {
 	GameMode _gm;
 	int _chosenSection;
@@ -190,7 +190,7 @@ GameMode GamePlay::ChooseGameMode(short int &level,GameDifficult &_gd, unsigned 
 	choose:
 	if (_chosenSection == 0)
 	{
-		level = Campaign(_unlock);
+		level = Campaign(0);
 		_gm = GameMode::CAMPAIGN;
 		
 	}
