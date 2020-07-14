@@ -95,9 +95,9 @@ int Menu::StartMenu(bool& isLGBT_)
 	return _chosenSection;
 }
 
-void Menu::Choices(short int &level, GameDifficult&_gd, GameMode& _gm, unsigned short int _unlock,bool& _islgbt)
+void Menu::Choices(short int &level, GameDifficult&_gd, GameMode& _gm, unsigned short int _unlock,bool& isLGBT_)
 {
-	short int _chosenSection = StartMenu(_islgbt);
+	short int _chosenSection = StartMenu(isLGBT_);
 	if (_chosenSection == 0)
 	{
 		_gm = GamePlay::ChooseGameMode(level,_gd,_unlock);
