@@ -12,16 +12,15 @@ int main()
 	short int _lv;
 	bool enableLGBT;
 	int choose = 0;
-	DataControl::readHighScore("highscore");
 	Scene* playScene;
 	do
 	{
 		DataControl _getMap;
-		_getMap.readMap("map9");
-		choose = Menu::Choices(_lv, _gameDifficult, _gameMode, enableLGBT);
+		_getMap.readMap("map1");
+		choose = Menu::Choices(_gameDifficult, _gameMode, enableLGBT);
 		if (choose == 0)
 		{
-			playScene = new Scene(_getMap._map,_gameMode, _lv, _gameDifficult, enableLGBT);
+			playScene = new Scene(_getMap._map,_gameMode, _gameDifficult, enableLGBT);
 			playScene->run();
 			delete playScene;
 		}

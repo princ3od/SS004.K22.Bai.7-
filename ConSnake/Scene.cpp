@@ -140,6 +140,7 @@ void Scene::endGame()
 {
 	DataControl _data;
 	_data.readLoseText("losetext");
+	_data.readHighScore("highscore");
 	clearScreen();
 	int i = rand() % 30;
 	setColor(Color::WHITE);
@@ -148,7 +149,7 @@ void Scene::endGame()
 	gotoXY(MAX / 2 - 2, HEIGHT / 2);
 	setColor(Color::GRAY);
 	cout << "Your score: ";
-	bool _new = DataControl::save(_snake->_score, _gm);
+	bool _new = _data.save(_snake->_score, _gm);
 	if (_new)
 	{
 		setColor(Color::GREEN);

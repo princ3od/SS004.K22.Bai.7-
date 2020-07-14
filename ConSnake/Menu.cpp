@@ -1,4 +1,5 @@
 #include "Menu.h"
+#include "Data.h"
 int Menu::StartMenu(bool& isLGBT_)
 {
 	clearScreen();
@@ -111,6 +112,24 @@ back:
 	}
 	else if (_chosenSection == 1)
 	{
+		DataControl _data;
+		_data.readHighScore("highscore");
+		setColor(Color::WHITE);
+		gotoXY(MAX / 2 - 21, HEIGHT / 2 - 10);
+		cout << "---------------[HIGH SCORE]---------------";
+
+		setColor(Color::WHITE);
+		gotoXY(MAX / 2 - 8, HEIGHT / 2 - 6);
+		cout << "[CLASSICAL MODE]";
+		for (int i = 0; i < 10; i++)
+		{
+			gotoXY(MAX / 2 - 1, HEIGHT / 2 - 6 + i + 1);
+			if (i < 2)
+				setColor(Color::YELLOW);
+			else
+				setColor(Color::GRAY);
+			cout << _data._classicalHighScore[i];
+		}
 		do
 		{
 			input = _getch();
@@ -124,13 +143,13 @@ back:
 		setColor(Color::BLUE);     gotoXY(4, 5); cout << "||      ||   ||   ||      ||   ||    ||      ||    ";
 		setColor(Color::PURPLE);   gotoXY(4, 6); cout << " ====   ||   ||    ====   ||==||     ||      ||    ";
 
-		setColor(Color::RED);      gotoXY(6, 10); cout << "BAI THU HOACH SS004.K2.7";
-		setColor(Color::RED);	   gotoXY(6, 11); cout << "Mon:"; setColor(Color::GREEN); cout << "Ky nang nghe nghiep";
-		setColor(Color::RED);	   gotoXY(6, 12); cout << "GV:";  setColor(Color::GREEN); cout << "TS.Nguyen Van Toan";
-		setColor(Color::RED);	   gotoXY(6, 15); cout << "Nhom:";
-		setColor(Color::GREEN);    gotoXY(6, 16);cout << "Duong Binh Trong - 19521056";
-								   gotoXY(6, 17);cout << "Dang Hai Thinh - 19521056";
-								   gotoXY(6, 18);cout << "Le Thanh Luan - 19520702";
+		setColor(Color::ORANGE);      gotoXY(6, 10); cout << "BAI THU HOACH SS004.K2.7";
+		setColor(Color::ORANGE);	   gotoXY(6, 11); cout << "Mon:"; setColor(Color::GREEN); cout << " Ky nang nghe nghiep";
+		setColor(Color::ORANGE);	   gotoXY(6, 12); cout << "GV:";  setColor(Color::GREEN); cout << " TS.Nguyen Van Toan";
+		setColor(Color::ORANGE);	   gotoXY(6, 15); cout << "Nhom:";
+		setColor(Color::GREEN);    gotoXY(6, 16);cout << "- Duong Binh Trong - 19521056";
+								   gotoXY(6, 17);cout << "- Dang Hai Thinh - 19521056";
+								   gotoXY(6, 18);cout << "- Le Thanh Luan - 19520702";
 
 
 		setColor(Color::WHITE);
