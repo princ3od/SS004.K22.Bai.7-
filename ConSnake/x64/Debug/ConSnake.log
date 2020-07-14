@@ -1,9 +1,7 @@
-﻿  Data.cpp
-  Food.cpp
-C:\Users\asus\Desktop\Git\SS004.K22.Bai.7-\ConSnake\Food.cpp(5,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Menu.cpp
+﻿  Menu.cpp
+  Scene.cpp
+C:\Users\ltl13\OneDrive\Documents\GitHub\SS004.K22.Bai.7-\ConSnake\Scene.cpp(100,4): error C2065: '_data': undeclared identifier
   SnakeKun.cpp
-  main.cpp
+C:\Users\ltl13\OneDrive\Documents\GitHub\SS004.K22.Bai.7-\ConSnake\SnakeKun.cpp(138,14): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\ltl13\OneDrive\Documents\GitHub\SS004.K22.Bai.7-\ConSnake\SnakeKun.cpp(140,9): warning C4244: 'argument': conversion from 'float' to 'DWORD', possible loss of data
   Generating Code...
-C:\Users\asus\Desktop\Git\SS004.K22.Bai.7-\ConSnake\Library.h(71): warning C4717: 'operator==': recursive on all control paths, function will cause runtime stack overflow
-  ConSnake.vcxproj -> C:\Users\asus\Desktop\Git\SS004.K22.Bai.7-\ConSnake\x64\Debug\ConSnake.exe
