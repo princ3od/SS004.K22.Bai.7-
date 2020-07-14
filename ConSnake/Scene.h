@@ -6,7 +6,6 @@ class Scene
 {
 private:
 	GameMode _gm;
-	short int _lv;
 	GameDifficult _gd;
 	SnakeKun* _snake;
 	Food* _food;
@@ -15,7 +14,7 @@ private:
 	void drawMap();
 	void drawFakeWall();
 public:
-	Scene(MapData _fileMap[MAX][MAX],GameMode _gd, short int level, GameDifficult gameDiff, bool& _islgbt);
+	Scene(MapData _fileMap[MAX][MAX],GameMode _gd,GameDifficult gameDiff, bool& _islgbt);
 	void run();
 	friend void UserInput(void* id);
 };

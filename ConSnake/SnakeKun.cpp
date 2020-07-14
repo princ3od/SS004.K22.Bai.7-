@@ -1,5 +1,4 @@
 #include "SnakeKun.h"
-#include "Menu.h"
 SnakeKun::SnakeKun(MapData _map[MAX][MAX], GameDifficult _gd, bool _isLgbt)
 {
 	isLGBT_ = _isLgbt;

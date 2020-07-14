@@ -65,11 +65,10 @@ void Scene::drawMap()
 
 }
 
-Scene::Scene(MapData _fileMap[MAX][MAX], GameMode gameMode, short int level, GameDifficult gameDiff, bool& _islgbt)
+Scene::Scene(MapData _fileMap[MAX][MAX], GameMode gameMode,GameDifficult gameDiff, bool& _islgbt)
 {
 	_gd = gameDiff;
 	_gm = gameMode;
-	_lv = level;
 	userInput = prevInput = SnakeDirection::RIGHT;
 	for (int j = 0; j < MAX; j++)
 		for (int i = 0; i < MAX; i++)
