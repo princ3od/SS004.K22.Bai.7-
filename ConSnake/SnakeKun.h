@@ -15,6 +15,7 @@ private:
 	Color supportLGBTComunity(bool isLGBT_);
 public:
 	int _score;
+	bool isLGBT_;
 	SnakeKun() {}
 	SnakeKun(MapData _map[MAX][MAX], GameDifficult _gameDifficult,bool _islgbt);
 	void update(MapData _map[MAX][MAX],
