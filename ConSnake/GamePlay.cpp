@@ -25,7 +25,6 @@ short int GamePlay::Classic()
 	for (_chosenSection = 0; _chosenSection < 3;)
 	{
 		int j = _getch();
-		clearScreen();
 		switch (j)
 		{
 		case (int)Symbol::LEFT_KEY:
@@ -43,9 +42,12 @@ short int GamePlay::Classic()
 			Menu[_chosenSection] = 1;
 			break;
 		case (int)Symbol::ENTER_KEY:
+			clearScreen();
 			return _chosenSection + 1;
+			//break;
 		case (int)Symbol::EXIT_KEY:
 			back = 1;
+			clearScreen();
 			goto backToGameMode;
 		}
 		setColor(Color::BLUE);
@@ -103,7 +105,6 @@ GameMode GamePlay::ChooseGameMode(GameDifficult& _gd)
 	for (_chosenSection = 0; _chosenSection < 3;)
 	{
 		int j = _getch();
-		clearScreen();
 		switch (j)
 		{
 		case (int)Symbol::UP_KEY:
@@ -121,6 +122,7 @@ GameMode GamePlay::ChooseGameMode(GameDifficult& _gd)
 			Menu[_chosenSection] = 1;
 			break;
 		case (int)Symbol::ENTER_KEY:
+			clearScreen();
 			goto choose;
 		case (int)Symbol::EXIT_KEY:
 			back = 1;
