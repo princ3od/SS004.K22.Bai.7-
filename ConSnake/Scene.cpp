@@ -81,7 +81,6 @@ Scene::Scene(MapData _fileMap[MAX][MAX], GameMode gameMode, short int level, Gam
 
 void Scene::run()
 {
-	Data _data;
 	_beginthread(UserInput, 0, this);
 	bool eated = false;
 	while (true)
