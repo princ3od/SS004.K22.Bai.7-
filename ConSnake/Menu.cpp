@@ -118,12 +118,22 @@ back:
 		goto back;
 	}
 	else if (_chosenSection == 3) {
+		setColor(Color::RED);	   gotoXY(4, 2); cout << " ====     ===      ====   ||==||     ||   ======== ";
+		setColor(Color::YELLOW);   gotoXY(4, 3); cout << "||      ||   ||   ||      ||   ||    ||      ||    ";
+		setColor(Color::GREEN);	   gotoXY(4, 4); cout << "||      ||===     ||===   ||    ||   ||      ||    ";
+		setColor(Color::BLUE);     gotoXY(4, 5); cout << "||      ||   ||   ||      ||   ||    ||      ||    ";
+		setColor(Color::PURPLE);   gotoXY(4, 6); cout << " ====   ||   ||    ====   ||==||     ||      ||    ";
+
+		setColor(Color::RED);      gotoXY(6, 10); cout << "BAI THU HOACH SS004.K2.7";
+		setColor(Color::RED);	   gotoXY(6, 11); cout << "Mon:"; setColor(Color::GREEN); cout << "Ky nang nghe nghiep";
+		setColor(Color::RED);	   gotoXY(6, 12); cout << "GV:";  setColor(Color::GREEN); cout << "TS.Nguyen Van Toan";
+		setColor(Color::RED);	   gotoXY(6, 15); cout << "Nhom:";
+		setColor(Color::GREEN);    gotoXY(6, 16);cout << "Duong Binh Trong - 19521056";
+								   gotoXY(6, 17);cout << "Dang Hai Thinh - 19521056";
+								   gotoXY(6, 18);cout << "Le Thanh Luan - 19520702";
 
 
-
-
-
-		setColor(Color::GREEN);
+		setColor(Color::WHITE);
 		for (int j = HEIGHT / 2 - 10; j < HEIGHT / 2 + 5; j++)
 		{
 			gotoXY(WIDTH - 21, j);
