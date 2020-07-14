@@ -70,14 +70,13 @@ enum class GameDifficult
 	EASY = 0,
 	NORMAL = 1,
 	HARD = 2,
-	SPECIAL = 8,
 };
 //game mode
 enum class GameMode
 {
 	CLASSICAL = 0,
 	CAMPAIGN = 1,
-
+	ENDLESS = 2
 };
 
 //thua neu gia tri am

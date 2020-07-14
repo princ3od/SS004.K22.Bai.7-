@@ -8,5 +8,5 @@ class GamePlay
 public:
 	static short int Campaign();
 	static short int Classic();
-	static short int ChooseGameMode();
+	static GameMode ChooseGameMode(short int& level, GameDifficult& _gd);
 };
