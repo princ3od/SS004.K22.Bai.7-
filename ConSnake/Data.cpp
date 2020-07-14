@@ -55,21 +55,21 @@ bool DataControl::readLoseText(string _loseTextFile)
 {
 	fstream _file;
 	int index = 0;
-	_file.open(_loseTextFile);
+	_file.open(_loseTextFile + EXTENSION::DATA);
 	if (!_file.fail())
 	{
 		while (!_file.eof())
 		{
-			getline(_file, Data::_loseText[index]);
+			getline(_file, _loseText[index]);
 			index++;
 		}
 		for (index = index; index < 50; index++)
-			Data::_loseText[index] = "";
+			_loseText[index] = "";
 		_file.close();
 		return true;
 	}
 	for (index = index; index < 50; index++)
-		Data::_loseText[index] = Data::_loseText[0];
+		_loseText[index] = _loseText[0];
 	_file.close();
 	return false;
 }
@@ -80,7 +80,8 @@ bool DataControl::readMap(string _mapFile)
 	string str;
 	fstream _file;
 	int index = 0;
-	_file.open(_mapFile + EXTENSION::MAP);
+	string _fileName = _mapFile + EXTENSION::MAP;
+	_file.open(_fileName);
 	if (!_file.fail())
 	{
 		while (!_file.eof())
@@ -90,31 +91,24 @@ bool DataControl::readMap(string _mapFile)
 			for (i = 0; i < str.size(); i++)
 			{
 				if (str[i] == WALL_CHAR)
-					Data::_map[i][index] = MapData::WALL;
+					_map[i][index] = MapData::WALL;
 				else
-					Data::_map[i][index] = MapData::NOTHING;
+					_map[i][index] = MapData::NOTHING;
 			}
 			for (i = i; i < MAX; i++)
-				Data::_map[i][index] = MapData::NOTHING;
+				_map[i][index] = MapData::NOTHING;
 			index++;
 		}
 		for (index = index; index < MAX; index++)
 			for (int i = 0; i < MAX; i++)
-				Data::_map[i][index] = MapData::NOTHING;
+				_map[i][index] = MapData::NOTHING;
 		_file.close();
 		return true;
 	}
 	for (int i = 0; i < MAX; i++)
 		for (int j = 0; j < MAX; j++)
-			Data::_map[i][j] = MapData::NOTHING;
+			_map[i][j] = MapData::NOTHING;
 	return false;
-}
-
-bool DataControl::readData(string _mapFile, string _highScoreFile, string _loseTextFile)
-{
-	bool _get1 = readHighScore(_highScoreFile),
-		_get2 = readLoseText(_loseTextFile);
-	return (_get1 && _get2);
 }
 
 bool DataControl::save(int _newScore, GameMode _gameMode, CampaignScore _newCScore)
@@ -127,7 +121,7 @@ bool DataControl::save(int _newScore, GameMode _gameMode, CampaignScore _newCSco
 	{
 		_fileName = _fileName + _highType[0] + EXTENSION::DATA;
 		_file.open(_fileName);
-		while (_newScore < Data::_classicalHighScore[_pos])
+		while (_newScore <= Data::_classicalHighScore[_pos])
 			_pos++;
 		for (int i = 9; i > _pos; i--)
 			Data::_classicalHighScore[_pos] = Data::_classicalHighScore[_pos - 1];
@@ -139,8 +133,8 @@ bool DataControl::save(int _newScore, GameMode _gameMode, CampaignScore _newCSco
 	{
 		_fileName = _fileName + _highType[1] + EXTENSION::DATA;
 		_file.open(_fileName);
-		while (_newCScore._lv < Data::_campaignHighScore[_pos]._lv
-			&& _newCScore._time < Data::_campaignHighScore[_pos]._time)
+		while (_newCScore._lv <= Data::_campaignHighScore[_pos]._lv
+			&& _newCScore._time <= Data::_campaignHighScore[_pos]._time)
 			_pos++;
 		for (int i = 9; i > _pos; i--)
 			Data::_campaignHighScore[_pos] = Data::_campaignHighScore[_pos - 1];
@@ -153,7 +147,7 @@ bool DataControl::save(int _newScore, GameMode _gameMode, CampaignScore _newCSco
 	{
 		_fileName = _fileName + _highType[2] + EXTENSION::DATA;
 		_file.open(_fileName);
-		while (_newScore < Data::_endlessHighScore[_pos])
+		while (_newScore <= Data::_endlessHighScore[_pos])
 			_pos++;
 		for (int i = 9; i > _pos; i--)
 			Data::_endlessHighScore[_pos] = Data::_endlessHighScore[_pos - 1];
@@ -162,5 +156,8 @@ bool DataControl::save(int _newScore, GameMode _gameMode, CampaignScore _newCSco
 			_file << Data::_endlessHighScore[index] << endl;
 	}
 	_file.close();
-	return true;
+	if (_pos < 10)
+		return true;
+	return false;
 }
+
