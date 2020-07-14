@@ -2,11 +2,11 @@
 #include "Library.h"
 #include "SnakeKun.h"
 
-static short int _level;
+static GameDifficult _gameDiff;
 class GamePlay
 {
 public:
-	static short int Campaign(unsigned short int _unlock);
+	static short int Campaign();
 	static short int Classic();
-	static GameMode ChooseGameMode(short int& level, GameDifficult& _gd);
+	static GameMode ChooseGameMode(GameDifficult& _gd);
 };

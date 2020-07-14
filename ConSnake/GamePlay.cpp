@@ -1,66 +1,13 @@
 #include "GamePlay.h"
 
-short int GamePlay::Campaign(unsigned short int _unlock)
+short int GamePlay::Campaign()
 {
-	int _chosenSection;
-	unsigned short int i;
-	bool Menu[10] = { 1,0,0,0,0,0,0,0,0,0 };
-	setColor(Color::RED);
-	gotoXY(WIDTH / 2 - 4, 5);
-	cout << "                 [Level 1]              " << endl;
-	for (i = 1; i < 10; i++)
-	{
-		if (_unlock >= i)
-		{
-			setColor(Color::BLUE);
-		}
-		else setColor(Color::GRAY);
-		gotoXY(WIDTH / 2 - 4, 5 + i * 2);
-		cout << "                 [Level " << i + 1 << "]              " << endl;
-	}
-	for (_chosenSection = 0; _chosenSection < 10;)
-	{
-		int j = _getch();
-		clearScreen();
-		switch (j)
-		{
-		case (int)Symbol::UP_KEY:
-			Menu[_chosenSection] = 0;
-			--_chosenSection;
-			if (_chosenSection < 0)
-				_chosenSection = _unlock;
-			Menu[_chosenSection] = 1;
-			break;
-		case (int)Symbol::DOWN_KEY:
-			Menu[_chosenSection] = 0;
-			++_chosenSection;
-			if (_chosenSection > _unlock)
-				_chosenSection = 0;
-			Menu[_chosenSection] = 1;
-			break;
-		case '\r':
-			_level = _chosenSection;
-			return _level;
-		}
-
-		for (i = 0; i < 10; i++)
-		{
-			if (_unlock >= i)
-			{
-				setColor(Color::BLUE);
-			}
-			else setColor(Color::GRAY);
-			if (_chosenSection == i)
-				setColor(Color::RED);
-			gotoXY(WIDTH / 2 - 4, 5 + i * 2);
-			cout << "                 [Level " << i + 1 << "]              " << endl;
-		}
-	}
-	return _level;
+	return 0;
 }
 
 short int GamePlay::Classic()
 {
+	bool back = 0;
 	short int _chosenSection;
 	bool Menu[4];
 	Menu[0] = 1;
@@ -95,8 +42,11 @@ short int GamePlay::Classic()
 				_chosenSection = 0;
 			Menu[_chosenSection] = 1;
 			break;
-		case '\r':
+		case (int)Symbol::ENTER_KEY:
 			return _chosenSection + 1;
+		case (int)Symbol::EXIT_KEY:
+			back = 1;
+			goto backToGameMode;
 		}
 		setColor(Color::BLUE);
 		if (Menu[0] == 1)
@@ -127,11 +77,15 @@ short int GamePlay::Classic()
 		}
 
 	}
+backToGameMode:
+	ChooseGameMode(_gameDiff);
 	return _chosenSection + 1;
 }
 
-GameMode GamePlay::ChooseGameMode(short int& level, GameDifficult& _gd)
+GameMode GamePlay::ChooseGameMode(GameDifficult& _gd)
 {
+	_gameDiff = _gd;
+	bool back = 0;
 	GameMode _gm;
 	int _chosenSection;
 	bool Menu[4];
@@ -166,8 +120,11 @@ GameMode GamePlay::ChooseGameMode(short int& level, GameDifficult& _gd)
 				_chosenSection = 0;
 			Menu[_chosenSection] = 1;
 			break;
-		case '\r':
+		case (int)Symbol::ENTER_KEY:
 			goto choose;
+		case (int)Symbol::EXIT_KEY:
+			back = 1;
+			goto backToMenu;
 		}
 		setColor(Color::BLUE);
 		if (Menu[0] == 1)
@@ -186,13 +143,12 @@ GameMode GamePlay::ChooseGameMode(short int& level, GameDifficult& _gd)
 		cout << "                 [ENDLESS ]              " << endl;
 		setColor(Color::BLUE);
 	}
-
+backToMenu:
+	if (back)Menu::Choices(_gd, _gm, _lgbt);
 choose:
 	if (_chosenSection == 0)
 	{
-		level = Campaign(0);
 		_gm = GameMode::CAMPAIGN;
-
 	}
 	else if (_chosenSection == 1)
 	{
