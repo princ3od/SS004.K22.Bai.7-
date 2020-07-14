@@ -62,10 +62,12 @@ int Menu::StartMenu()
 
 void Menu::Choices()
 {
+	short int level;
+	GameDifficult _gd;
 	short int _chosenSection = StartMenu();
 	if (_chosenSection == 0)
 	{
-		GamePlay::ChooseGameMode();
+		GamePlay::ChooseGameMode(level,_gd);
 	}
 	else if (_chosenSection == 1)
 	{
