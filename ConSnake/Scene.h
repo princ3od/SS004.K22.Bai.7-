@@ -12,7 +12,7 @@ private:
 	MapData _map[MAX][MAX];
 	SnakeDirection userInput, prevInput;
 	void drawMap();
-	void drawFakeWall();
+	void endGame();
 public:
 	Scene(MapData _fileMap[MAX][MAX],GameMode _gd,GameDifficult gameDiff, bool& _islgbt);
 	void run();

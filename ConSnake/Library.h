@@ -89,7 +89,7 @@ enum class MapData
 	WALL = -2,
 	SNAKE = -1,
 	NOTHING = 0,
-	FOOD = 1,
+	FOOD = 1
 };
 
 enum class SnakeDirection {
