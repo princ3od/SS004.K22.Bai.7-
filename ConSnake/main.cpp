@@ -16,10 +16,13 @@ int main()
 	do
 	{
 		DataControl::readData("map1", "highscore", "losetext");
-		Menu::Choices(_lv, _gameDifficult, _gameMode, enableLGBT);
-		playScene = new Scene(Data::_map, _gameMode, _lv, _gameDifficult, enableLGBT);
-		playScene->run();
-		delete playScene;
-	} while (choose < 2);
+		choose = Menu::Choices(_lv, _gameDifficult, _gameMode, enableLGBT);
+		if (choose == 0)
+		{
+			playScene = new Scene(Data::_map, _gameMode, _lv, _gameDifficult, enableLGBT);
+			playScene->run();
+			delete playScene;
+		}
+	} while (choose < 4);
 	return 0;
 }

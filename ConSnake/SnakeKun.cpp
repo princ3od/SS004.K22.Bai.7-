@@ -135,8 +135,8 @@ void SnakeKun::update(MapData _map[MAX][MAX],SnakeDirection userInput, SnakeDire
 	//neu ran di len/xuong thi giam toc do(9)
 	if (_direction == SnakeDirection::UP || _direction == SnakeDirection::DOWN)
 	{
-		float heSo = (130 / _delay);
-		float delay_slow = _delay + ((_delay * 35) / 100) * heSo;
+		float heSo = (135 / _delay);
+		float delay_slow = _delay + ((_delay * 32) / 100) * heSo;
 		Sleep(delay_slow);
 	}
 	else Sleep(_delay);
@@ -145,11 +145,11 @@ void SnakeKun::update(MapData _map[MAX][MAX],SnakeDirection userInput, SnakeDire
 
 void SnakeKun::countFood()
 {
-	_score += (rand() % ((int)_gameDifficult * 4)) + (int)_gameDifficult + _bonus;
+	_score += (rand() % ((int)_gameDifficult * 4 + 1)) + (int)_gameDifficult + _bonus;
 	_bonus = ((int)_gameDifficult * 15);
 	_length += 1;
 	if (_delay > 16 && ((_length - 3) % 2 == 0))
-		_delay -= (rand() % (int)_gameDifficult + 1);
+		_delay -= (rand() % ((int)_gameDifficult + 1));
 }
 
 Coordinate SnakeKun::getHead()
