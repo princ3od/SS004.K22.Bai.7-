@@ -25,22 +25,9 @@ void UserInput(void* id)
 			scene->userInput = SnakeDirection::EXIT;
 			break;
 		}
-	} while (scene->userInput != SnakeDirection::EXIT);
+	} while (scene->userInput != SnakeDirection::EXIT );
 	_endthread();
 	return;
-}
-
-void Scene::drawFakeWall()
-{
-	setColor(Color::WHITE);
-	for (int i = 0; i < HEIGHT + 1; i++)
-	{ 
-
-	}
-	for (int i = 0; i < WIDTH + 1; i++)
-	{
-
-	}
 }
 
 void Scene::drawMap()
@@ -62,6 +49,17 @@ void Scene::drawMap()
 				else
 					cout << char(Symbol::LONG_BIG_BLOCK);
 			}
+	setColor(Color::GRAY);
+	for (int j = 0; j < HEIGHT + 1; j++)
+		{
+			gotoXY(WIDTH + 1, j);
+			cout << (char)Symbol::LONG_THIN_RIGHT_BLOCK;
+		}
+	for (int i = 0; i < WIDTH + 2; i++)
+		{
+			gotoXY(i, HEIGHT + 1);
+			cout << (char)Symbol::LONG_BOTTOM_BLOCK;
+		}
 }
 
 Scene::Scene(MapData _fileMap[MAX][MAX], GameMode gameMode, short int level, GameDifficult gameDiff)
