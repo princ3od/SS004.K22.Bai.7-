@@ -10,6 +10,10 @@
 using namespace std;
 
 //struct
+struct CampaignScore
+{
+	int _lv, _time;
+};
 struct Board
 {
 	char Name[9];

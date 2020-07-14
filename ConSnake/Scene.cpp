@@ -64,7 +64,6 @@ Scene::Scene(MapData _fileMap[MAX][MAX])
 
 void Scene::run()
 {
-	Data _data;
 	_beginthread(UserInput, 0, this);
 	bool eated = false;
 	while (true)
@@ -81,7 +80,6 @@ void Scene::run()
 		{
 			gotoXY(2, 2);
 			cout << "Lose";
-			_data.save(_snake->_score);
 			break;
 		}
 	}
