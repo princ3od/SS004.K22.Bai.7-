@@ -1,16 +1,26 @@
 #pragma once
 #include "Library.h"
-class Data
+namespace Data
+{
+	static MapData _map[MAX][MAX];
+	static string _loseText[50];
+	static int _classicalHighScore[10];
+	static CampaignScore _campaignHighScore[10];
+	static int _endlessHighScore[10];
+}
+namespace EXTENSION
+{
+	static const string MAP = ".cmap";
+	static const string DATA = ".dat";
+}
+class DataControl
 {
 private:
-	bool readHighScore(string _scoreBoardFile = "highscore.txt");
-	bool readLoseText(string _loseTextFile = "losetext.txt");
-	bool readMap(string _mapFile = "defaultmap.txt");
+	static bool readHighScore(string _highScoreFile);
+	static bool readLoseText(string _loseTextFile);
 public:
-	MapData _map[MAX][MAX];
-	string _loseText[50];
-	int _highScore[10];
-	bool readData(string _scoreBoardFile = "highscore.txt", string _loseTextFile = "losetext.txt");
-	bool save(int _newScore, string _scoreBoardFile = "highscore.txt");
+	static bool readData(string _mapFile, string _highScoreFile, string _loseTextFile);
+	static bool readMap(string _mapFile);
+	static bool save(int _newScore, GameMode _gameMode, CampaignScore _newCScore = { 0,0 });
 };
 
