@@ -17,6 +17,6 @@ private:
 public:
 	Scene(MapData _fileMap[MAX][MAX],GameMode _gd, short int level, GameDifficult gameDiff, bool& _islgbt);
 	void run();
-	friend void UserInput(void* id);
+	//friend void UserInput(void* id);
 };
 

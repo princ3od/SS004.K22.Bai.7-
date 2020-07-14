@@ -1,34 +1,34 @@
 #include "Scene.h"
 #include "Data.h"
 
-void UserInput(void* id)
-{
-	Scene* scene = (Scene*)id;
-	do
-	{
-		int c = _getch();
-		switch (c)
-		{
-		case (int)Symbol::UP_KEY: case 'w': case'W':
-			scene->userInput = SnakeDirection::UP;
-			break;
-		case (int)Symbol::DOWN_KEY: case 's': case'S':
-			scene->userInput = SnakeDirection::DOWN;
-			break;
-		case (int)Symbol::RIGHT_KEY: case 'd': case'D':
-			scene->userInput = SnakeDirection::RIGHT;
-			break;
-		case (int)Symbol::LEFT_KEY: case 'a': case'A':
-			scene->userInput = SnakeDirection::LEFT;
-			break;
-		case (int)Symbol::EXIT_KEY:
-			scene->userInput = SnakeDirection::EXIT;
-			break;
-		}
-	} while (scene->userInput != SnakeDirection::EXIT );
-	_endthread();
-	return;
-}
+//void UserInput(void* id)
+//{
+//	Scene* scene = (Scene*)id;
+//	do
+//	{
+//		int c = _getch();
+//		switch (c)
+//		{
+//		case (int)Symbol::UP_KEY: case 'w': case'W':
+//			scene->userInput = SnakeDirection::UP;
+//			break;
+//		case (int)Symbol::DOWN_KEY: case 's': case'S':
+//			scene->userInput = SnakeDirection::DOWN;
+//			break;
+//		case (int)Symbol::RIGHT_KEY: case 'd': case'D':
+//			scene->userInput = SnakeDirection::RIGHT;
+//			break;
+//		case (int)Symbol::LEFT_KEY: case 'a': case'A':
+//			scene->userInput = SnakeDirection::LEFT;
+//			break;
+//		case (int)Symbol::EXIT_KEY:
+//			scene->userInput = SnakeDirection::EXIT;
+//			break;
+//		}
+//	} while (scene->userInput != SnakeDirection::EXIT);
+//	_endthread
+//	return;
+//}
 
 void Scene::drawMap()
 {
@@ -81,11 +81,31 @@ Scene::Scene(MapData _fileMap[MAX][MAX], GameMode gameMode, short int level, Gam
 
 void Scene::run()
 {
-	_beginthread(UserInput, 0, this);
 	bool eated = false;
-	while (true)
+	while (userInput != SnakeDirection::EXIT && _snake->isAive())
 	{
 		_snake->update(_map, userInput, prevInput, eated);
+		int c = 3;
+		if (_kbhit())
+			c = _getch();
+		switch (c)
+		{
+		case (int)Symbol::UP_KEY: case 'w': case'W':
+			userInput = SnakeDirection::UP;
+			break;
+		case (int)Symbol::DOWN_KEY: case 's': case'S':
+			userInput = SnakeDirection::DOWN;
+			break;
+		case (int)Symbol::RIGHT_KEY: case 'd': case'D':
+			userInput = SnakeDirection::RIGHT;
+			break;
+		case (int)Symbol::LEFT_KEY: case 'a': case'A':
+			userInput = SnakeDirection::LEFT;
+			break;
+		case (int)Symbol::EXIT_KEY:
+			userInput = SnakeDirection::EXIT;
+			break;
+		}
 		if (eated)
 		{
 			eated = false;
@@ -95,12 +115,10 @@ void Scene::run()
 		}
 		if (!_snake->isAive())
 		{
+			userInput = SnakeDirection::EXIT;
 			gotoXY(2, 2);
 			cout << "Lose";
 			DataControl::save(_snake->_score, GameMode::CLASSICAL);
-			delete _snake;
-			_endthread;
-			break;
 		}
 	}
 }
