@@ -35,7 +35,6 @@ int Menu::StartMenu(bool& isLGBT_)
 	do
 	{
 		input = _getch();
-		clearScreen();
 		switch (input)
 		{
 		case (int)Symbol::UP_KEY:
@@ -53,6 +52,7 @@ int Menu::StartMenu(bool& isLGBT_)
 			Menu[_chosenSection] = 1;
 			break;
 		case (int)Symbol::ENTER_KEY:
+			clearScreen();
 			if (_chosenSection == 2) {
 				isLGBT_ = !isLGBT_;
 			}
@@ -185,6 +185,7 @@ back:
 	}
 	else if (_chosenSection == 4)
 	{
+		clearScreen();
 		setColor(Color::RED); //man hình ket thuc
 		gotoXY(WIDTH / 2 - 2, HEIGHT / 2 - 2); cout << "-------------------------" << endl;
 		gotoXY(WIDTH / 2 - 7, HEIGHT / 2 - 1); cout << "     |    GOOD BYE! (^O^)/   |" << endl;
