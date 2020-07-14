@@ -53,16 +53,19 @@ void Scene::drawMap()
 	for (int j = 0; j < HEIGHT + 1; j++)
 		{
 			gotoXY(WIDTH + 1, j);
-			cout << (char)Symbol::LONG_THIN_RIGHT_BLOCK;
+			cout << (char)Symbol::TALL_BLOCK;
 		}
-	for (int i = 0; i < WIDTH + 2; i++)
+	for (int i = 0; i < WIDTH + 1; i++)
 		{
 			gotoXY(i, HEIGHT + 1);
-			cout << (char)Symbol::LONG_BOTTOM_BLOCK;
+			cout << (char)Symbol::LONG_BLOCK;
 		}
+	gotoXY(WIDTH + 1, HEIGHT + 1);
+	cout << (char)Symbol::TOP_LEFT;
+
 }
 
-Scene::Scene(MapData _fileMap[MAX][MAX], GameMode gameMode, short int level, GameDifficult gameDiff)
+Scene::Scene(MapData _fileMap[MAX][MAX], GameMode gameMode, short int level, GameDifficult gameDiff,bool& _islgbt)
 {
 	_gd = gameDiff;
 	_gm = gameMode;
@@ -72,7 +75,7 @@ Scene::Scene(MapData _fileMap[MAX][MAX], GameMode gameMode, short int level, Gam
 		for (int i = 0; i < MAX; i++)
 			_map[i][j] = _fileMap[i][j];
 	drawMap();
-	_snake = new SnakeKun(_map, _gd);
+	_snake = new SnakeKun(_map, _gd, _islgbt);
 	_food = new Food(_map);
 }
 
