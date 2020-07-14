@@ -5,13 +5,21 @@
 int main()
 {
 	setFont();
-	hideCursor();
-	DataControl::readData("map1", "highscore", "losetext");
-	Menu::Choices();
-	cout << (char)Symbol::BOTTOM_RIGHT << (char)Symbol::LONG_BLOCK << (char)Symbol::BOTTOM_LEFT << endl;
-	cout << (char)Symbol::TALL_BLOCK << " " << (char)Symbol::TALL_BLOCK << endl;
-	cout << (char)Symbol::TOP_RIGHT << (char)Symbol::LONG_BLOCK << (char)Symbol::TOP_LEFT << endl;
-	Scene* playScene = new Scene(Data::_map);
-	playScene->run();
+
+	hideCursor(); 
+	GameMode _gameMode;
+	GameDifficult _gameDifficult;
+	short int _lv;
+	bool enableLGBT;
+	int choose = 0;
+	Scene* playScene;
+	do
+	{
+		DataControl::readData("map1", "highscore", "losetext");
+		Menu::Choices(_lv, _gameDifficult, _gameMode, enableLGBT);
+		playScene = new Scene(Data::_map, _gameMode, _lv, _gameDifficult, enableLGBT);
+		playScene->run();
+		delete playScene;
+	} while (choose < 2);
 	return 0;
 }
