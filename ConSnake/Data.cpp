@@ -137,8 +137,14 @@ bool DataControl::save(int _newScore, GameMode _gameMode, CampaignScore _newCSco
 		_file.open(_fileName);
 		while (_pos > 0 && _newCScore._lv >= _campaignHighScore[_pos - 1]._lv)
 		{
-			while (_newCScore._lv <= _campaignHighScore[_pos - 1]._lv && _newCScore._time < _campaignHighScore[_pos - 1]._time)
-				_pos--;
+			_pos--;
+			_campaignHighScore[_pos + 1]._lv = _campaignHighScore[_pos]._lv;
+			_campaignHighScore[_pos + 1]._time = _campaignHighScore[_pos]._time;
+			
+		}
+		while (_newCScore._lv == _campaignHighScore[_pos - 1]._lv && _newCScore._time < _campaignHighScore[_pos - 1]._time)
+		{
+			_pos--;
 			_campaignHighScore[_pos + 1]._lv = _campaignHighScore[_pos]._lv;
 			_campaignHighScore[_pos + 1]._time = _campaignHighScore[_pos]._time;
 		}

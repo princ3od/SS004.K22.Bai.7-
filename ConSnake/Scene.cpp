@@ -7,6 +7,8 @@ void UserInput(void* id)
 	int c = 2;
 	do
 	{
+		if (scene == nullptr)
+			return;
 		c = _getch();
 		switch (c)
 		{
@@ -232,6 +234,7 @@ Scene::Scene(MapData _fileMap[MAX][MAX], GameMode gameMode, GameDifficult gameDi
 
 void Scene::run()
 {
+
 	_beginthread(UserInput, 0, this);
 	bool eated = false;
 	while (_snake->isAive())
@@ -258,22 +261,21 @@ void Scene::run()
 			delete _food;
 			_food = new Food(_map);
 		}
-		if (_gm == GameMode::CAMPAIGN && _snake->getLength() == 30 + _lv * 5)
+		if (_gm == GameMode::CAMPAIGN && _snake->getLength() == 20 + (_lv * 4))
 		{
 			_getPass = true;
-			passCampaign();
-			_getch();
-			break;
+				passCampaign();
+				_getch();
+				break;
 		}
 	}
 	if (!_snake->isAive() && _gm != GameMode::CAMPAIGN)
 	{
 		endGame();
-		_getch();
+			_getch();
 	}
 	else if (!_snake->isAive() && _gm == GameMode::CAMPAIGN)
 	{
-		_getPass == false;
 		endCampaign();
 		_getch();
 	}
