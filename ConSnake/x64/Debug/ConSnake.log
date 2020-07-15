@@ -1,7 +1,0 @@
-﻿  Menu.cpp
-  Scene.cpp
-C:\Users\ltl13\OneDrive\Documents\GitHub\SS004.K22.Bai.7-\ConSnake\Scene.cpp(100,4): error C2065: '_data': undeclared identifier
-  SnakeKun.cpp
-C:\Users\ltl13\OneDrive\Documents\GitHub\SS004.K22.Bai.7-\ConSnake\SnakeKun.cpp(138,14): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\ltl13\OneDrive\Documents\GitHub\SS004.K22.Bai.7-\ConSnake\SnakeKun.cpp(140,9): warning C4244: 'argument': conversion from 'float' to 'DWORD', possible loss of data
-  Generating Code...
