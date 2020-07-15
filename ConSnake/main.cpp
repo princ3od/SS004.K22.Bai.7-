@@ -40,8 +40,14 @@ int main()
 			}
 			else
 			{
-				playScene = new Scene(_getMap._map, _gameMode, _gameDifficult, enableLGBT, _lv + 1);
-				playScene->run();
+				while (true)
+				{
+					_getMap.readMap("map" + _lvStr[_lv]);
+					playScene = new Scene(_getMap._map, _gameMode, _gameDifficult, enableLGBT, _lv + 1);
+					playScene->run();
+					if (!playScene->_getPass)
+						break;
+				}
 			}
 			delete playScene;
 		}

@@ -217,7 +217,11 @@ void Scene::run()
 			_food = new Food(_map);
 		}
 		if (_snake->getLength() == _lv * (25 - _lv * 2))
+		{
+			_lv++;
+			_getPass = true;
 			break;
+		}
 	}
 	if (!_snake->isAive() && _gm != GameMode::CAMPAIGN)
 	{
