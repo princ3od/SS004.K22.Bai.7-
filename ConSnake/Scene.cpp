@@ -225,7 +225,6 @@ void Scene::run()
 		}
 	}
 	if (!_snake->isAive() && _gm != GameMode::CAMPAIGN)
-	
 		endGame();	
 	_getch();
 	delete _snake;
