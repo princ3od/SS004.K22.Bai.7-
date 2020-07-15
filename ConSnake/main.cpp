@@ -59,15 +59,10 @@ int main()
 						break;
 					_lv++;
 					delete playScene;
+					playScene = nullptr;
 					clearScreen();
 				}
-				if (_getMap.save(0, GameMode::CAMPAIGN, CampaignScore{ _lv, _time }))
-				{
-					string annouce = "You've just made a new Campaign High Score!";
-					setColor(Color::GRAY);
-					gotoXY(MAX / 2 - annouce.length() / 2 - 5, 22);
-					cout << annouce;
-				}
+				_getMap.save(0, GameMode::CAMPAIGN, CampaignScore{ _lv, _time });
 			}
 			delete playScene;
 		}

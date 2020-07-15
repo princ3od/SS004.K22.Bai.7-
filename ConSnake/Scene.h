@@ -9,8 +9,7 @@ private:
 	GameDifficult _gd;
 	SnakeKun* _snake;
 	Food* _food;
-	MapData _map[MAX][MAX];
-	SnakeDirection userInput, prevInput;
+	MapData _map[MAX][MAX];	
 	int _lv;
 	void drawMap();
 	void endGame();
@@ -18,6 +17,7 @@ private:
 	void passCampaign();
 public:
 	bool _getPass = false;
+	SnakeDirection userInput, prevInput;
 	Scene(MapData _fileMap[MAX][MAX], GameMode _gd, GameDifficult gameDiff, bool& _islgbt, int lv = 0);
 	void run();
 	friend void UserInput(void* id);
