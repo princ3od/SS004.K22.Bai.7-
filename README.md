@@ -1,5 +1,7 @@
 ## ĐỒ ÁN CUỐI KÌ MÔN KỸ NĂNG NGHỀ NGHIỆP (SS004.K22)
-Tên dự án: **ConSnake**  
+Tên đồ án: **ConSnake**  
+
+Giảng viên hướng dẫn: ThS. Nguyễn Văn Toàn  
 
 Thành viên của nhóm: 
    - Đặng Hải Thịnh - 19520976  
@@ -7,9 +9,10 @@ Thành viên của nhóm:
    - Dương Bình Trọng - 19521056  
    
 Mô tả chi tiết: game rắn săn mồi trên windows console   
+
 Ngôn ngữ sử dụng: C++  
 
-Thiết kế và hoàn thành theo mô hình Lập trình hướng đối tượng.  
+Thiết kế và hoàn thành theo mô hình Lập trình hướng đối tượng (OOP).  
 
 Link tài liệu tổng quát: **https://docs.google.com/document/d/1WlEpUSt6rags8yvGw23YabaPjvIff_73-q-tx06MtuE/edit?usp=sharing**  
 
