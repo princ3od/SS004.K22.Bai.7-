@@ -168,7 +168,7 @@ back:
 
 		
 		//help
-		setColor(Color::WHITE);
+		setColor(Color::GRAY);
 		for (int j = HEIGHT / 2 - 10; j < HEIGHT / 2 + 10; j++)
 		{
 			gotoXY(WIDTH - 17, j);
@@ -192,6 +192,7 @@ back:
 		gotoXY(WIDTH + 13, HEIGHT / 2 - 11);
 		cout << (char)Symbol::BOTTOM_LEFT;
 
+		setColor(Color::YELLOW);
 		gotoXY(WIDTH - 15, HEIGHT / 2 - 9);		cout << "||   ||  ||===  ||    ||==\\\\";
 		gotoXY(WIDTH - 15, HEIGHT / 2 - 8);		cout << "||===||  ||===  ||    ||==||";
 		gotoXY(WIDTH - 15, HEIGHT / 2 - 7);		cout << "||   ||  ||===  ||==  ||    ";
