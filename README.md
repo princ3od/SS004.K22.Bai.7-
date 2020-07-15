@@ -1,12 +1,12 @@
 ## ĐỒ ÁN CUỐI KÌ MÔN KỸ NĂNG NGHỀ NGHIỆP (SS004.K22)
 Tên đồ án: **ConSnake**  
 
-Giảng viên hướng dẫn: ThS. Nguyễn Văn Toàn  
+Giảng viên hướng dẫn: **ThS. Nguyễn Văn Toàn**  
 
 Thành viên của nhóm: 
-   - Đặng Hải Thịnh - 19520976  
-   - Lê Thành Luân - 19520702 
-   - Dương Bình Trọng - 19521056  
+   **- Đặng Hải Thịnh - 19520976  
+   **- Lê Thành Luân - 19520702 
+   **- Dương Bình Trọng - 19521056  
    
 Mô tả chi tiết: game rắn săn mồi trên windows console   
 
