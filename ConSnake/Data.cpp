@@ -113,7 +113,7 @@ bool DataControl::readMap(string _mapFile)
 
 bool DataControl::save(int _newScore, GameMode _gameMode, CampaignScore _newCScore)
 {
-	int _pos = 9;
+	int _pos = 10;
 	fstream _file;
 	string _fileName = "highscore";
 	char _highType[3] = { '1','2','3' };
@@ -121,12 +121,13 @@ bool DataControl::save(int _newScore, GameMode _gameMode, CampaignScore _newCSco
 	{
 		_fileName = _fileName + _highType[0] + EXTENSION::DATA;
 		_file.open(_fileName);
-		while (_pos > 0 && _newScore > _classicalHighScore[_pos])
+		while (_pos > 0 && _newScore > _classicalHighScore[_pos - 1])
 		{
 			_pos--;
 			_classicalHighScore[_pos + 1] = _classicalHighScore[_pos];
 		}
-		_classicalHighScore[_pos] = _newScore;
+		if (_pos < 10)
+			_classicalHighScore[_pos] = _newScore;
 		for (int index = 0; index < 10; index++)
 			_file << _classicalHighScore[index] << endl;
 	}
@@ -134,13 +135,14 @@ bool DataControl::save(int _newScore, GameMode _gameMode, CampaignScore _newCSco
 	{
 		_fileName = _fileName + _highType[1] + EXTENSION::DATA;
 		_file.open(_fileName);
-		while (_pos > 0 && _newCScore._lv > _campaignHighScore[_pos]._lv
-			&& _newCScore._time > _campaignHighScore[_pos]._time)
+		while (_pos > 0 && _newCScore._lv > _campaignHighScore[_pos - 1]._lv
+			&& _newCScore._time > _campaignHighScore[_pos - 1]._time)
 		{
 			_pos--;
 			_campaignHighScore[_pos + 1] = _campaignHighScore[_pos];
 		}
-		_campaignHighScore[_pos] = _newCScore;
+		if (_pos < 10)
+			_campaignHighScore[_pos] = _newCScore;
 		for (int index = 0; index < 10; index++)
 			_file << _campaignHighScore[index]._lv << " "
 			<< _campaignHighScore[index]._time << endl;
@@ -149,12 +151,13 @@ bool DataControl::save(int _newScore, GameMode _gameMode, CampaignScore _newCSco
 	{
 		_fileName = _fileName + _highType[2] + EXTENSION::DATA;
 		_file.open(_fileName);
-		while (_pos > 0 && _newScore > _endlessHighScore[_pos])
+		while (_pos > 0 && _newScore > _endlessHighScore[_pos - 1])
 		{
 			_pos--;
 			_endlessHighScore[_pos + 1] = _endlessHighScore[_pos];
 		}
-		_endlessHighScore[_pos] = _newScore;
+		if (_pos < 10)
+			_endlessHighScore[_pos] = _newScore;
 		for (int index = 0; index < 10; index++)
 			_file << _endlessHighScore[index] << endl;
 	}

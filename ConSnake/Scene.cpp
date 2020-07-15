@@ -99,7 +99,10 @@ void Scene::drawMap()
 	}
 	setColor(Color::GRAY);
 	gotoXY(86, 6);
-	cout << "SCORE: ";
+	if (_gm != GameMode::CAMPAIGN)
+		cout << "SCORE: ";
+	else
+		cout << "LEVEL: " << _lv;
 
 	for (int x = 83; x <= MAX + 3; x++)
 	{
@@ -113,6 +116,8 @@ void Scene::drawMap()
 	cout << "Snake length: 4 + ";
 	gotoXY(86, 13);
 	cout << "Snake location: ";
+	gotoXY(86, 14);
+	cout << "Snake speed: ";
 	gotoXY(86, 15);
 	cout << "Food location: ";
 
@@ -169,8 +174,9 @@ void Scene::endGame()
 	cout << instruc;
 }
 
-Scene::Scene(MapData _fileMap[MAX][MAX], GameMode gameMode,GameDifficult gameDiff, bool& _islgbt)
+Scene::Scene(MapData _fileMap[MAX][MAX], GameMode gameMode, GameDifficult gameDiff, bool& _islgbt, int lv)
 {
+	_lv = lv;
 	_gd = gameDiff;
 	_gm = gameMode;
 	userInput = prevInput = SnakeDirection::RIGHT;
@@ -188,13 +194,18 @@ void Scene::run()
 	bool eated = false;
 	while (_snake->isAive())
 	{
-		gotoXY(93, 6);
-		cout << _snake->_score;
+		if (_gm != GameMode::CAMPAIGN)
+		{
+			gotoXY(93, 6);
+			cout << _snake->_score;
+		}
 		setColor(Color::WHITE);
 		gotoXY(104, 12);
 		cout << _snake->getLength() - 4;
 		gotoXY(102, 13);
 		cout << "(" << _snake->getHead().x << "," << _snake->getHead().y << ")  ";
+		gotoXY(99, 14);
+		cout << _snake->getSpeed() - 100;
 		gotoXY(101, 15);
 		cout << "(" << _food->get().x << "," << _food->get().y << ")  ";
 		_snake->update(_map, userInput, prevInput, eated);
@@ -205,9 +216,14 @@ void Scene::run()
 			delete _food;
 			_food = new Food(_map);
 		}
+		if (_snake->getLength() == _lv * (25 - _lv * 2))
+			break;
 	}
-	endGame();
-	_getch();
+	if (!_snake->isAive() && _gm != GameMode::CAMPAIGN)
+	{
+		endGame();
+		_getch();
+	}
 	delete _snake;
 	if (!eated)
 		delete _food;
