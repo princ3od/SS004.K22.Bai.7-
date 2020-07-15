@@ -119,11 +119,11 @@ back:
 		_data.readHighScore("highscore");
 
 		setColor(Color::WHITE);
-		gotoXY(MAX / 2 - 18, HEIGHT / 2 - 6);
+		gotoXY(MAX / 2 - 4, HEIGHT / 2 - 6);
 		cout << "[CLASSICAL MODE]";
 		for (i; i < 10; i++)
 		{    //Classic
-			gotoXY(MAX / 2 - 14, HEIGHT / 2 - 6 + i + 1);
+			gotoXY(MAX / 2 , HEIGHT / 2 - 6 + i + 1);
 			if (i < 3)
 				setColor(Color::YELLOW);
 			else
@@ -137,10 +137,10 @@ back:
 
 
 			//Endless
-			gotoXY(MAX / 2 + 8 , HEIGHT / 2 - 6);
+			gotoXY(MAX / 2 + 28 , HEIGHT / 2 - 6);
 			setColor(Color::PURPLE);
 			cout << "[ENDLESS MODE]";
-			gotoXY(MAX / 2 + 12, HEIGHT / 2 - 6 + i + 1);
+			gotoXY(MAX / 2 + 32, HEIGHT / 2 - 6 + i + 1);
 			if (i < 3)
 				setColor(Color::YELLOW);
 			else
@@ -155,10 +155,10 @@ back:
 
 
 			//Campaign
-			gotoXY(MAX / 2 - 48, HEIGHT / 2 - 6);
+			gotoXY(MAX / 2 - 42, HEIGHT / 2 - 6);
 			setColor(Color::RED);
 			cout << "[CAMPAIGN MODE]";
-			gotoXY(MAX / 2 - 49 , HEIGHT / 2 - 6 + i + 1);
+			gotoXY(MAX / 2 - 46 , HEIGHT / 2 - 6 + i + 1);
 			if (i < 3)
 				setColor(Color::YELLOW);
 			else
@@ -169,8 +169,9 @@ back:
 			}
 			else
 				cout << i + 1 << ".   ";
+			cout << "Level:";
 			cout << _data._campaignHighScore[i]._lv;
-			gotoXY(MAX / 2 - 39, HEIGHT / 2 - 6 + i + 1);
+			gotoXY(MAX / 2 - 30, HEIGHT / 2 - 6 + i + 1);
 			cout << "TIME:";
 			cout << _data._campaignHighScore[i]._time;
 			cout << "s";
@@ -182,14 +183,14 @@ back:
 				_curColor++;
 				_curColor = (_curColor > 5) ? 0 : _curColor;
 				gotoXY(1, HEIGHT / 2 - 10);
-				cout << "---------------------------------------[HIGH SCORE]---------------------------------------";
+				cout << "-------------------------------------------------[HIGH SCORE]-------------------------------------------------";
 				gotoXY(1, HEIGHT - 6);
-				cout << "------------------------------------------------------------------------------------------";
+				cout << "--------------------------------------------------------------------------------------------------------------";
 				for (i = HEIGHT / 2 - 10; i < HEIGHT - 5; i++)
 				{
 					gotoXY(0, i);
 					cout << "||";
-					gotoXY(91, i);
+					gotoXY(111, i);
 					cout << "||";
 				}
 				Sleep(100);
