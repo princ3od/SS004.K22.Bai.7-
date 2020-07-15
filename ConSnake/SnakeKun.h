@@ -26,5 +26,9 @@ public:
 	SnakeDirection getDirection();
 	int getSpeed();
 	bool isAive();
+	void kill()
+	{
+		_isAlive = false;
+	}
 };
 

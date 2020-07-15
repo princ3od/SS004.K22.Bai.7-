@@ -15,9 +15,11 @@ int main()
 
 	int choose = 0;
 	Scene* playScene;
+	DataControl _getMap;
+	_getMap.readHighScore("highscore");
 	do
 	{
-		DataControl _getMap;
+
 		choose = Menu::Choices(_gameDifficult, _gameMode, enableLGBT);
 		switch (_gameMode)
 		{
@@ -34,6 +36,7 @@ int main()
 		if (choose == 0)
 		{
 			_lv = 0;
+			_getMap.readHighScore("highscore");
 			if (_gameMode != GameMode::CAMPAIGN)
 			{
 				playScene = new Scene(_getMap._map, _gameMode, _gameDifficult, enableLGBT);
@@ -58,7 +61,13 @@ int main()
 					delete playScene;
 					clearScreen();
 				}
-				_getMap.save(0, _gameMode, CampaignScore{ _lv, _time });
+				if (_getMap.save(0, GameMode::CAMPAIGN, CampaignScore{ _lv, _time }))
+				{
+					string annouce = "You've just made a new Campaign High Score!";
+					setColor(Color::GRAY);
+					gotoXY(MAX / 2 - annouce.length() / 2 - 5, 22);
+					cout << annouce;
+				}
 			}
 			delete playScene;
 		}

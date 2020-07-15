@@ -15,6 +15,7 @@ private:
 	void drawMap();
 	void endGame();
 	void endCampaign();
+	void passCampaign();
 public:
 	bool _getPass = false;
 	Scene(MapData _fileMap[MAX][MAX], GameMode _gd, GameDifficult gameDiff, bool& _islgbt, int lv = 0);
