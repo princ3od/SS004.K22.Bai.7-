@@ -11,10 +11,12 @@ private:
 	Food* _food;
 	MapData _map[MAX][MAX];
 	SnakeDirection userInput, prevInput;
+	int _lv;
 	void drawMap();
 	void endGame();
 public:
-	Scene(MapData _fileMap[MAX][MAX],GameMode _gd,GameDifficult gameDiff, bool& _islgbt);
+	bool _getPass = false;
+	Scene(MapData _fileMap[MAX][MAX], GameMode _gd, GameDifficult gameDiff, bool& _islgbt, int lv = 0);
 	void run();
 	friend void UserInput(void* id);
 };
