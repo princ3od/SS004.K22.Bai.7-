@@ -11,7 +11,8 @@ int main()
 	GameDifficult _gameDifficult;
 	char _lvStr[10] = { '1','2','3','4','5','6','7','8','9','10' };
 	int _lv = 0;
-	bool enableLGBT;
+	bool enableLGBT = 1;
+
 	int choose = 0;
 	Scene* playScene;
 	do
@@ -29,6 +30,7 @@ int main()
 		default:
 			break;
 		}
+
 		if (choose == 0)
 		{
 			if (_gameMode != GameMode::CAMPAIGN)
