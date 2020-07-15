@@ -119,11 +119,11 @@ back:
 		_data.readHighScore("highscore");
 
 		setColor(Color::WHITE);
-		gotoXY(MAX / 2 - 7, HEIGHT / 2 - 6);
+		gotoXY(MAX / 2 - 4, HEIGHT / 2 - 6);
 		cout << "[CLASSICAL MODE]";
-		for (int i = 0; i < 10; i++)
-		{
-			gotoXY(MAX / 2 - 3, HEIGHT / 2 - 6 + i + 1);
+		for (i; i < 10; i++)
+		{    //Classic
+			gotoXY(MAX / 2 , HEIGHT / 2 - 6 + i + 1);
 			if (i < 3)
 				setColor(Color::YELLOW);
 			else
@@ -138,10 +138,10 @@ back:
 
 
 			//Endless
-			gotoXY(MAX / 2 + 27, HEIGHT / 2 - 6);
+			gotoXY(MAX / 2 + 28 , HEIGHT / 2 - 6);
 			setColor(Color::PURPLE);
 			cout << "[ENDLESS MODE]";
-			gotoXY(MAX / 2 + 30, HEIGHT / 2 - 6 + i + 1);
+			gotoXY(MAX / 2 + 32, HEIGHT / 2 - 6 + i + 1);
 			if (i < 3)
 				setColor(Color::YELLOW);
 			else
@@ -156,10 +156,10 @@ back:
 
 
 			//Campaign
-			gotoXY(MAX / 2 - 40, HEIGHT / 2 - 6);
+			gotoXY(MAX / 2 - 42, HEIGHT / 2 - 6);
 			setColor(Color::RED);
 			cout << "[CAMPAIGN MODE]";
-			gotoXY(MAX / 2 - 46, HEIGHT / 2 - 6 + i + 1);
+			gotoXY(MAX / 2 - 46 , HEIGHT / 2 - 6 + i + 1);
 			if (i < 3)
 				setColor(Color::YELLOW);
 			else
