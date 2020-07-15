@@ -103,6 +103,7 @@ int Menu::StartMenu(bool& isLGBT_)
 int Menu::Choices(GameDifficult& _gd, GameMode& _gm, bool& isLGBT_)
 {
 	_lgbt = isLGBT_;
+	short int i = 0;
 	short int input = (int)Symbol::ENTER_KEY;
 back:
 	short int _chosenSection = StartMenu(isLGBT_);
@@ -112,28 +113,47 @@ back:
 	}
 	else if (_chosenSection == 1)
 	{
+		short int _curColor = 0;
 		DataControl _data;
 		_data.readHighScore("highscore");
-		setColor(Color::WHITE);
-		gotoXY(MAX / 2 - 21, HEIGHT / 2 - 10);
-		cout << "---------------[HIGH SCORE]---------------";
 
 		setColor(Color::WHITE);
-		gotoXY(MAX / 2 - 8, HEIGHT / 2 - 6);
+		gotoXY(MAX / 2 - 20, HEIGHT / 2 - 6);
 		cout << "[CLASSICAL MODE]";
-		for (int i = 0; i < 10; i++)
+		for (i; i < 10; i++)
 		{
-			gotoXY(MAX / 2 - 1, HEIGHT / 2 - 6 + i + 1);
-			if (i < 2)
+			gotoXY(MAX / 2 - 16, HEIGHT / 2 - 6 + i + 1);
+			if (i < 3)
 				setColor(Color::YELLOW);
 			else
 				setColor(Color::GRAY);
+			if(i == 9)
+			{
+				cout << i + 1 << ".  ";
+			}else
+			cout << i + 1 << ".   ";
 			cout << _data._classicalHighScore[i];
 		}
 		do
 		{
-			input = _getch();
-		} while (input != (int)Symbol::EXIT_KEY);
+				Color _c[6] = { Color::RED,Color::ORANGE,Color::YELLOW,Color::GREEN,Color::BLUE,Color::PURPLE };
+				setColor(_c[_curColor]);
+				_curColor++;
+				_curColor = (_curColor > 5) ? 0 : _curColor;
+				gotoXY(1, HEIGHT / 2 - 10);
+				cout << "---------------------------------------[HIGH SCORE]---------------------------------------";
+				gotoXY(1, HEIGHT - 6);
+				cout << "------------------------------------------------------------------------------------------";
+				for (i = HEIGHT / 2 - 10; i < HEIGHT - 5; i++)
+				{
+					gotoXY(0, i);
+					cout << "||";
+					gotoXY(91, i);
+					cout << "||";
+				}
+				Sleep(100);
+		} while (!_kbhit());
+		input = _getch();
 		goto back;
 	}
 	else if (_chosenSection == 3) {
@@ -143,10 +163,10 @@ back:
 		setColor(Color::BLUE);     gotoXY(4, 5); cout << "||      ||   ||   ||      ||   ||    ||      ||    ";
 		setColor(Color::PURPLE);   gotoXY(4, 6); cout << " ====   ||   ||    ====   ||==||     ||      ||    ";
 
-		setColor(Color::ORANGE);      gotoXY(6, 10); cout << "BAI THU HOACH SS004.K2.7";
-		setColor(Color::ORANGE);	   gotoXY(6, 11); cout << "Mon:"; setColor(Color::GREEN); cout << " Ky nang nghe nghiep";
-		setColor(Color::ORANGE);	   gotoXY(6, 12); cout << "GV:";  setColor(Color::GREEN); cout << " TS.Nguyen Van Toan";
-		setColor(Color::ORANGE);	   gotoXY(6, 15); cout << "Nhom:";
+		setColor(Color::ORANGE);   gotoXY(6, 10); cout << "BAI THU HOACH SS004.K2.7";
+		setColor(Color::ORANGE);   gotoXY(6, 11); cout << "Mon:"; setColor(Color::GREEN); cout << " Ky nang nghe nghiep(Professional Skill)";
+		setColor(Color::ORANGE);   gotoXY(6, 12); cout << "GV:";  setColor(Color::GREEN); cout << "  TS.Nguyen Van Toan";
+		setColor(Color::ORANGE);   gotoXY(6, 15); cout << "Nhom:";
 		setColor(Color::GREEN);    gotoXY(6, 16);cout << "- Duong Binh Trong - 19521056";
 								   gotoXY(6, 17);cout << "- Dang Hai Thinh - 19521056";
 								   gotoXY(6, 18);cout << "- Le Thanh Luan - 19520702";
