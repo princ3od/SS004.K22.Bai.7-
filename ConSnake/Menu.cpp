@@ -102,12 +102,12 @@ int Menu::StartMenu(bool& isLGBT_)
 
 int Menu::Choices(GameDifficult& _gd, GameMode& _gm, bool& isLGBT_)
 {
+back:
 	_lgbt = isLGBT_;
 	short int i = 0;
 	Color _c[6] = { Color::RED,Color::ORANGE,Color::YELLOW,Color::GREEN,Color::BLUE,Color::PURPLE };
 	short int _curColor = 0;
 	short int input = (int)Symbol::ENTER_KEY;
-back:
 	short int _chosenSection = StartMenu(isLGBT_);
 	if (_chosenSection == 0)
 	{
@@ -119,11 +119,11 @@ back:
 		_data.readHighScore("highscore");
 
 		setColor(Color::WHITE);
-		gotoXY(MAX / 2 - 20, HEIGHT / 2 - 6);
+		gotoXY(MAX / 2 - 18, HEIGHT / 2 - 6);
 		cout << "[CLASSICAL MODE]";
 		for (i; i < 10; i++)
-		{
-			gotoXY(MAX / 2 - 16, HEIGHT / 2 - 6 + i + 1);
+		{    //Classic
+			gotoXY(MAX / 2 - 14, HEIGHT / 2 - 6 + i + 1);
 			if (i < 3)
 				setColor(Color::YELLOW);
 			else
@@ -134,6 +134,47 @@ back:
 			}else
 			cout << i + 1 << ".   ";
 			cout << _data._classicalHighScore[i];
+
+
+			//Endless
+			gotoXY(MAX / 2 + 8 , HEIGHT / 2 - 6);
+			setColor(Color::PURPLE);
+			cout << "[ENDLESS MODE]";
+			gotoXY(MAX / 2 + 12, HEIGHT / 2 - 6 + i + 1);
+			if (i < 3)
+				setColor(Color::YELLOW);
+			else
+				setColor(Color::GRAY);
+			if (i == 9)
+			{
+				cout << i + 1 << ".  ";
+			}
+			else
+			cout << i + 1 << ".   ";
+			cout << _data._endlessHighScore[i];
+
+
+			//Campaign
+			gotoXY(MAX / 2 - 48, HEIGHT / 2 - 6);
+			setColor(Color::RED);
+			cout << "[CAMPAIGN MODE]";
+			gotoXY(MAX / 2 - 49 , HEIGHT / 2 - 6 + i + 1);
+			if (i < 3)
+				setColor(Color::YELLOW);
+			else
+				setColor(Color::GRAY);
+			if (i == 9)
+			{
+				cout << i + 1 << ".  ";
+			}
+			else
+				cout << i + 1 << ".   ";
+			cout << _data._campaignHighScore[i]._lv;
+			gotoXY(MAX / 2 - 39, HEIGHT / 2 - 6 + i + 1);
+			cout << "TIME:";
+			cout << _data._campaignHighScore[i]._time;
+			cout << "s";
+
 		}
 		do
 		{

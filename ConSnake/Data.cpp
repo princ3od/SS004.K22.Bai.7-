@@ -27,7 +27,7 @@ bool DataControl::readHighScore(string _highScoreFile)
 				while (!_file.eof())
 				{
 					_file >> _campaignHighScore[index]._lv
-						>> _campaignHighScore[index]._time;
+						  >> _campaignHighScore[index]._time;
 					index++;
 				}
 				for (index = index; index < 10; index++)
