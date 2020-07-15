@@ -104,6 +104,8 @@ int Menu::Choices(GameDifficult& _gd, GameMode& _gm, bool& isLGBT_)
 {
 	_lgbt = isLGBT_;
 	short int i = 0;
+	Color _c[6] = { Color::RED,Color::ORANGE,Color::YELLOW,Color::GREEN,Color::BLUE,Color::PURPLE };
+	short int _curColor = 0;
 	short int input = (int)Symbol::ENTER_KEY;
 back:
 	short int _chosenSection = StartMenu(isLGBT_);
@@ -113,7 +115,6 @@ back:
 	}
 	else if (_chosenSection == 1)
 	{
-		short int _curColor = 0;
 		DataControl _data;
 		_data.readHighScore("highscore");
 
@@ -136,7 +137,6 @@ back:
 		}
 		do
 		{
-				Color _c[6] = { Color::RED,Color::ORANGE,Color::YELLOW,Color::GREEN,Color::BLUE,Color::PURPLE };
 				setColor(_c[_curColor]);
 				_curColor++;
 				_curColor = (_curColor > 5) ? 0 : _curColor;
@@ -157,12 +157,7 @@ back:
 		goto back;
 	}
 	else if (_chosenSection == 3) {
-		setColor(Color::RED);	   gotoXY(4, 2); cout << " ====     ===      ====   ||==||     ||   ======== ";
-		setColor(Color::YELLOW);   gotoXY(4, 3); cout << "||      ||   ||   ||      ||   ||    ||      ||    ";
-		setColor(Color::GREEN);	   gotoXY(4, 4); cout << "||      ||===     ||===   ||    ||   ||      ||    ";
-		setColor(Color::BLUE);     gotoXY(4, 5); cout << "||      ||   ||   ||      ||   ||    ||      ||    ";
-		setColor(Color::PURPLE);   gotoXY(4, 6); cout << " ====   ||   ||    ====   ||==||     ||      ||    ";
-
+		// credit
 		setColor(Color::ORANGE);   gotoXY(6, 10); cout << "BAI THU HOACH SS004.K2.7";
 		setColor(Color::ORANGE);   gotoXY(6, 11); cout << "Mon:"; setColor(Color::GREEN); cout << " Ky nang nghe nghiep(Professional Skill)";
 		setColor(Color::ORANGE);   gotoXY(6, 12); cout << "GV:";  setColor(Color::GREEN); cout << "  TS.Nguyen Van Toan";
@@ -171,35 +166,62 @@ back:
 								   gotoXY(6, 17);cout << "- Dang Hai Thinh - 19521056";
 								   gotoXY(6, 18);cout << "- Le Thanh Luan - 19520702";
 
-
+		
+		//help
 		setColor(Color::WHITE);
-		for (int j = HEIGHT / 2 - 10; j < HEIGHT / 2 + 5; j++)
+		for (int j = HEIGHT / 2 - 10; j < HEIGHT / 2 + 10; j++)
 		{
-			gotoXY(WIDTH - 21, j);
+			gotoXY(WIDTH - 17, j);
 			cout << (char)Symbol::TALL_BLOCK;
-			gotoXY(WIDTH + 1, j);
+			gotoXY(WIDTH + 13, j);
 			cout << (char)Symbol::TALL_BLOCK;
 		}
-		for (int i = WIDTH - 20; i < WIDTH + 1; i++)
+		for (int i = WIDTH - 16; i < WIDTH + 13; i++)
 		{
-			gotoXY(i, HEIGHT / 2 + 5);
+			gotoXY(i, HEIGHT / 2 + 10);
 			cout << (char)Symbol::LONG_BLOCK;
 			gotoXY(i, HEIGHT / 2 - 11);
 			cout << (char)Symbol::LONG_BLOCK;
 		}
-		gotoXY(WIDTH - 21, HEIGHT / 2 + 5);
+		gotoXY(WIDTH - 17, HEIGHT / 2 + 10);
 		cout << (char)Symbol::TOP_RIGHT;
-		gotoXY(WIDTH - 21, HEIGHT / 2 - 11);
+		gotoXY(WIDTH - 17, HEIGHT / 2 - 11);
 		cout << (char)Symbol::BOTTOM_RIGHT;
-		gotoXY(WIDTH + 1, HEIGHT / 2 + 5);
+		gotoXY(WIDTH + 13, HEIGHT / 2 + 10);
 		cout << (char)Symbol::TOP_LEFT;
-		gotoXY(WIDTH + 1, HEIGHT / 2 - 11);
+		gotoXY(WIDTH + 13, HEIGHT / 2 - 11);
 		cout << (char)Symbol::BOTTOM_LEFT;
+
+		gotoXY(WIDTH - 15, HEIGHT / 2 - 9);		cout << "||   ||  ||===  ||    ||==\\\\";
+		gotoXY(WIDTH - 15, HEIGHT / 2 - 8);		cout << "||===||  ||===  ||    ||==||";
+		gotoXY(WIDTH - 15, HEIGHT / 2 - 7);		cout << "||   ||  ||===  ||==  ||    ";
+
+		gotoXY(WIDTH - 15, HEIGHT / 2 - 6);		cout << "---------------------------";
+		gotoXY(WIDTH - 15, HEIGHT / 2 - 4);
+		cout << "UP        = UP ARROW / W";
+		gotoXY(WIDTH - 15, HEIGHT / 2 - 2);
+		cout << "DOWN      = DOWN ARROW / S";
+		gotoXY(WIDTH - 15, HEIGHT / 2 );
+		cout << "LEFT      = LEFT ARROW / A";
+		gotoXY(WIDTH - 15, HEIGHT / 2 + 2);
+		cout << "RIGHT     = RIGHT ARROW / D";
+		gotoXY(WIDTH - 15, HEIGHT / 2 + 6);
+		cout << "CHOOSE    = ENTER";
+		gotoXY(WIDTH - 15, HEIGHT / 2 + 8);
+		cout << "EXIT/BACK = ESC(~)";
 
 		do
 		{
-			input = _getch();
-		} while (input != (int)Symbol::EXIT_KEY);
+			setColor(_c[_curColor]);	   gotoXY(4, 2); cout << " ====     ===      ====   ||==||     ||   ======== "; ++_curColor; if (_curColor > 5)_curColor = 0;
+			setColor(_c[_curColor]);	   gotoXY(4, 3); cout << "||      ||   ||   ||      ||   ||    ||      ||    "; ++_curColor; if (_curColor > 5)_curColor = 0;
+			setColor(_c[_curColor]);	   gotoXY(4, 4); cout << "||      ||===     ||===   ||    ||   ||      ||    "; ++_curColor; if (_curColor > 5)_curColor = 0;
+			setColor(_c[_curColor]);       gotoXY(4, 5); cout << "||      ||   ||   ||      ||   ||    ||      ||    "; ++_curColor; if (_curColor > 5)_curColor = 0;
+			setColor(_c[_curColor]);	   gotoXY(4, 6); cout << " ====   ||   ||    ====   ||==||     ||      ||    "; ++_curColor; if (_curColor > 5)_curColor = 0;
+
+			if (_curColor > 5)_curColor = 0;
+			Sleep(400);
+		} while (!_kbhit());
+		input = _getch();
 		goto back;
 
 	}
