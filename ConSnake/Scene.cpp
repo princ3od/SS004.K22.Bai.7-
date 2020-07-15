@@ -154,7 +154,8 @@ void Scene::endGame()
 	gotoXY(MAX / 2 - 2, HEIGHT / 2);
 	setColor(Color::GRAY);
 	cout << "Your score: ";
-	bool _new = _data.save(_snake->_score, _gm);
+	bool _new;
+	_new = _data.save(_snake->_score, _gm);
 	if (_new)
 	{
 		setColor(Color::GREEN);
@@ -190,7 +191,8 @@ Scene::Scene(MapData _fileMap[MAX][MAX], GameMode gameMode, GameDifficult gameDi
 
 void Scene::run()
 {
-	_beginthread(UserInput, 0, this);
+	if (_lv == 1 || _gm != GameMode::CAMPAIGN)
+		_beginthread(UserInput, 0, this);
 	bool eated = false;
 	while (_snake->isAive())
 	{
@@ -216,18 +218,15 @@ void Scene::run()
 			delete _food;
 			_food = new Food(_map);
 		}
-		if (_snake->getLength() == _lv * (25 - _lv * 2))
+		if (_snake->getLength() == 6)//_lv * (25 - _lv * 2))
 		{
-			_lv++;
 			_getPass = true;
 			break;
 		}
 	}
 	if (!_snake->isAive() && _gm != GameMode::CAMPAIGN)
-	{
-		endGame();
-		_getch();
-	}
+		endGame();	
+	_getch();
 	delete _snake;
 	if (!eated)
 		delete _food;
