@@ -9,7 +9,7 @@ int main()
 
 	GameMode _gameMode;
 	GameDifficult _gameDifficult;
-	char _lvStr[10] = { '1','2','3','4','5','6','7','8','9','10' };
+	string _lvStr[10] = { "1","2","3","4","5","6","7","8","9","10" };
 	int _lv = 0;
 	bool enableLGBT = 1;
 
@@ -33,6 +33,7 @@ int main()
 
 		if (choose == 0)
 		{
+			_lv = 0;
 			if (_gameMode != GameMode::CAMPAIGN)
 			{
 				playScene = new Scene(_getMap._map, _gameMode, _gameDifficult, enableLGBT);
@@ -50,14 +51,14 @@ int main()
 					_timeBegin = chrono::steady_clock::now();
 					playScene->run();
 					_timeEnd = chrono::steady_clock::now();
-					_time += (chrono::duration_cast<std::chrono::microseconds>(_timeBegin - _timeEnd).count()) / 1000000;
+					_time += (chrono::duration_cast<std::chrono::microseconds>(_timeEnd - _timeBegin).count()) / 1000000;
 					if (!playScene->_getPass)
 						break;
 					_lv++;
 					delete playScene;
-					_getMap.save(0, _gameMode, CampaignScore{ _lv, _time });
 					clearScreen();
 				}
+				_getMap.save(0, _gameMode, CampaignScore{ _lv, _time });
 			}
 			delete playScene;
 		}
