@@ -1,0 +1,64 @@
+Game làm cho Bài Thu Hoạch SS004.K22.7
+của nhóm:
+Dương Bình Trọng - 19521056
+Đặng Hải Thịnh - 19520976
+Lê Thành Luân - 19520702 
+
+
+=======================================Điều kiện======================================================================================================================
+
+Để chạy chương trình này, máy tính bạn phải có đủ các điều kiện này.
++ Hệ điều hành Windows
++ Đã cài đặt Visual C++ các bản từ 2008 tới nay.
+
+=======================================Hướng dẫn sử dụng==============================================================================================================
+
+- Mở file thực thi Snake.exe để mở game.
+
+- Dùng 4 phím mũi tên hoặc W,A,S,D để di chuyển giữa các lựa chọn.
+	Mũi tên lên / W    = Lên
+	Mũi tên xuống / S  = Xuống
+	mũi tên trái / D   = Qua trái
+	mũi tên phải / A   = Qua phải
+- Nhấn phím Enter để chọn.
+- Phím Esc có thể được nhấn tại bất kì thời điểm nào trong game để thoát về màn hình chính hoặc thoát game.
+
+========================================Màn Hình Game=================================================================================================================
+
++ Màn hình chính(Menu)
+	*Start(chơi game)
+	*Scoreboard(bảng điểm)
+	*LGBTMode(chế độ rắn 7 màu)   On = bật/ Off = tắt 
+	*Credit & Help(Thông tin nhóm làm game và hướng dẫn chơi)
+	*Exit(thoát game)
+
++ Màn hình chọn chế độ chơi(GameMode)
+	*Campaign(chế độ chơi theo màn)
+		_Chơi để qua các màn và thắng game.
+		_Khi đạt đủ điểm, trò chơi sẽ tự qua màn tiếp theo,
+	*Classic(chế độ thường)
+		_Chơi để đạt điểm cao nhất có thể.
+		_Nếu có thể, hãy lấp trống màn chơi bằng thân mình của snake và giành chiến thắng.
+	*Endless(chế độ không giới hạn)
+		_Chơi như Classic nhưng màn chơi sẽ không bị giới hạn bởi các bức tường.
+
++ Màn hình chọn độ khó(Gamedifficult)
+	*Easy(chế độ dễ)
+		_Tốc độ chậm, điểm thấp.
+	*Normal(chế độ thường)
+		_Tốc độ vừa, điểm bình thường.
+	*Hard(chế độ khó)
+		_Tốc độ nhanh, điểm cao.	
+ 
+========================================Các Lỗi Thường Gặp============================================================================================================
+
+1.Báo lỗi thiếu file có đuôi .dll
+ - Đây là lỗi xảy ra khi máy chưa cài đặt Visual C++.
+2.Lỗi các vật tương tác bị phân tán khắp màn hình
+ - Vì game được làm trên console nên khi bạn chỉnh size console không đúng cách sẽ làm cho các output 
+bị sắp xếp không đúng trình tự.
+
+========================================Cách Sửa Lỗi==================================================================================================================
+
+1.Tải các phiên bản Visual C++ từ 2008 đến 2019 về và tiến hành cài đặt.
+2.Hãy resize console ngay màn hình menu chính, trước khi vào bất kì các màn hình khác.
