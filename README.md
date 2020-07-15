@@ -3,7 +3,7 @@ Tên đồ án: **ConSnake**
 
 Giảng viên hướng dẫn: **ThS. Nguyễn Văn Toàn**  
 
-Thành viên của nhóm: 
+Thành viên của nhóm:
    - Đặng Hải Thịnh - 19520976  
    - Lê Thành Luân - 19520702 
    - Dương Bình Trọng - 19521056  
