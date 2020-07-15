@@ -119,11 +119,11 @@ back:
 		_data.readHighScore("highscore");
 
 		setColor(Color::WHITE);
-		gotoXY(MAX / 2 - 7, HEIGHT / 2 - 6);
+		gotoXY(MAX / 2 - 18, HEIGHT / 2 - 6);
 		cout << "[CLASSICAL MODE]";
-		for (int i = 0; i < 10; i++)
-		{
-			gotoXY(MAX / 2 - 3, HEIGHT / 2 - 6 + i + 1);
+		for (i; i < 10; i++)
+		{    //Classic
+			gotoXY(MAX / 2 - 14, HEIGHT / 2 - 6 + i + 1);
 			if (i < 3)
 				setColor(Color::YELLOW);
 			else
@@ -182,14 +182,14 @@ back:
 				_curColor++;
 				_curColor = (_curColor > 5) ? 0 : _curColor;
 				gotoXY(1, HEIGHT / 2 - 10);
-				cout << "---------------------------------------------------[HIGH SCORE]--------------------------------------------------";
-				gotoXY(2, HEIGHT - 6);
-				cout << "----------------------------------------------------------------------------------------------------------------";
+				cout << "---------------------------------------[HIGH SCORE]---------------------------------------";
+				gotoXY(1, HEIGHT - 6);
+				cout << "------------------------------------------------------------------------------------------";
 				for (i = HEIGHT / 2 - 10; i < HEIGHT - 5; i++)
 				{
 					gotoXY(0, i);
 					cout << "||";
-					gotoXY(MAX, i);
+					gotoXY(91, i);
 					cout << "||";
 				}
 				Sleep(100);
