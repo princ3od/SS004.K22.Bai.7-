@@ -205,7 +205,7 @@ back:
 		setColor(Color::ORANGE);   gotoXY(6, 12); cout << "GV:";  setColor(Color::GREEN); cout << "  TS.Nguyen Van Toan";
 		setColor(Color::ORANGE);   gotoXY(6, 15); cout << "Nhom:";
 		setColor(Color::GREEN);    gotoXY(6, 16); cout << "- Duong Binh Trong - 19521056";
-		gotoXY(6, 17); cout << "- Dang Hai Thinh - 19521056";
+		gotoXY(6, 17); cout << "- Dang Hai Thinh - 19520976";
 		gotoXY(6, 18); cout << "- Le Thanh Luan - 19520702";
 
 
