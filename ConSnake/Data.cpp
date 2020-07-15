@@ -27,7 +27,7 @@ bool DataControl::readHighScore(string _highScoreFile)
 				while (!_file.eof())
 				{
 					_file >> _campaignHighScore[index]._lv
-						  >> _campaignHighScore[index]._time;
+						>> _campaignHighScore[index]._time;
 					index++;
 				}
 				for (index = index; index < 10; index++)
@@ -116,7 +116,7 @@ bool DataControl::save(int _newScore, GameMode _gameMode, CampaignScore _newCSco
 	int _pos = 10;
 	fstream _file;
 	string _fileName = "highscore";
-	char _highType[3] = { '1','2','3' };
+	string _highType[3] = { "1","2","3" };
 	if (_gameMode == GameMode::CLASSICAL)
 	{
 		_fileName = _fileName + _highType[0] + EXTENSION::DATA;
@@ -135,14 +135,20 @@ bool DataControl::save(int _newScore, GameMode _gameMode, CampaignScore _newCSco
 	{
 		_fileName = _fileName + _highType[1] + EXTENSION::DATA;
 		_file.open(_fileName);
-		while (_pos > 0 && _newCScore._lv > _campaignHighScore[_pos - 1]._lv
-			&& _newCScore._time > _campaignHighScore[_pos - 1]._time)
+		while (_pos > 0 && _newCScore._lv >= _campaignHighScore[_pos - 1]._lv)
 		{
-			_pos--;
-			_campaignHighScore[_pos + 1] = _campaignHighScore[_pos];
+			while (_newCScore._lv <= _campaignHighScore[_pos - 1]._lv && _newCScore._time < _campaignHighScore[_pos - 1]._time)
+				_pos--;
+			_campaignHighScore[_pos + 1]._lv = _campaignHighScore[_pos]._lv;
+			_campaignHighScore[_pos + 1]._time = _campaignHighScore[_pos]._time;
 		}
 		if (_pos < 10)
-			_campaignHighScore[_pos] = _newCScore;
+		{
+
+			_campaignHighScore[_pos]._lv = _newCScore._lv;
+			_campaignHighScore[_pos]._time = _newCScore._time;
+
+		}
 		for (int index = 0; index < 10; index++)
 			_file << _campaignHighScore[index]._lv << " "
 			<< _campaignHighScore[index]._time << endl;
@@ -162,7 +168,7 @@ bool DataControl::save(int _newScore, GameMode _gameMode, CampaignScore _newCSco
 			_file << _endlessHighScore[index] << endl;
 	}
 	_file.close();
-	if (_pos < 10)
+	if (_pos < 9)
 		return true;
 	return false;
 }

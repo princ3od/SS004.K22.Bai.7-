@@ -28,8 +28,8 @@ void UserInput(void* id)
 		}
 	} while (scene->userInput != SnakeDirection::EXIT);
 	setColor(Color::GRAY);
-	string instruc = "*one more";
-	gotoXY(MAX / 2, HEIGHT / 2 + 3);
+	string instruc = "*one more, onii-chan~~~~";
+	gotoXY(MAX / 2 - instruc.length() / 2 + 5, HEIGHT / 2 + 3);
 	cout << instruc;
 	_endthread();
 }
@@ -102,8 +102,12 @@ void Scene::drawMap()
 	if (_gm != GameMode::CAMPAIGN)
 		cout << "SCORE: ";
 	else
-		cout << "LEVEL: " << _lv;
-
+	{
+		cout << "LEVEL: ";
+		setColor(Color::GREEN);
+		cout << _lv;
+	}
+	setColor(Color::GRAY);
 	for (int x = 83; x <= MAX + 3; x++)
 	{
 		gotoXY(x, 8);
@@ -184,26 +188,30 @@ void Scene::endCampaign()
 	setColor(Color::WHITE);
 	gotoXY(MAX / 2 - _data._loseText[i].length() / 2 + 4, HEIGHT / 2 - 2);
 	cout << _data._loseText[i];
-	gotoXY(MAX / 2 - 2, HEIGHT / 2);
+	gotoXY(MAX / 2 - 5, HEIGHT / 2);
 	setColor(Color::GRAY);
 	cout << "Your level pass: ";
-	bool _new;
-	_new = _data.save(_snake->_score, _gm);
-	if (_new)
-	{
-		setColor(Color::GREEN);
-		cout << _lv - 1;
-		setColor(Color::ORANGE);
-		gotoXY(MAX / 2 - 3, HEIGHT / 2 + 1);
-		cout << "New High Score!";
-	}
-	else
-	{
-		setColor(Color::YELLOW);
-		cout << _lv - 1;
-	}
+	setColor(Color::YELLOW);
+	cout << _lv - 1;
 	setColor(Color::RED);
 	string instruc = "Press [ESC] key to return to main menu.";
+	gotoXY(MAX / 2 - instruc.length() / 2 + 5, HEIGHT / 2 + 2);
+	cout << instruc;
+}
+
+void Scene::passCampaign()
+{
+	clearScreen();
+	gotoXY(MAX / 2 - 6, HEIGHT / 2 - 1);
+	setColor(Color::GRAY);
+	cout << "You have passed level " << _lv;
+	gotoXY(MAX / 2 - 3, HEIGHT / 2);
+	setColor(Color::WHITE);
+	cout << "YOUR NEXT LEVEL: ";
+	setColor(Color::GREEN);
+	cout << _lv + 1;
+	setColor(Color::RED);
+	string instruc = "Press [ESC] key to proccess to next level.";
 	gotoXY(MAX / 2 - instruc.length() / 2 + 5, HEIGHT / 2 + 2);
 	cout << instruc;
 }
@@ -224,8 +232,7 @@ Scene::Scene(MapData _fileMap[MAX][MAX], GameMode gameMode, GameDifficult gameDi
 
 void Scene::run()
 {
-	if (_lv == 1 || _gm != GameMode::CAMPAIGN)
-		_beginthread(UserInput, 0, this);
+	_beginthread(UserInput, 0, this);
 	bool eated = false;
 	while (_snake->isAive())
 	{
@@ -251,9 +258,11 @@ void Scene::run()
 			delete _food;
 			_food = new Food(_map);
 		}
-		if ( _gm == GameMode::CAMPAIGN && _snake->getLength() == 6)//_lv * (25 - _lv * 2))
+		if (_gm == GameMode::CAMPAIGN && _snake->getLength() == 30 + _lv * 5)
 		{
 			_getPass = true;
+			passCampaign();
+			_getch();
 			break;
 		}
 	}
@@ -264,6 +273,7 @@ void Scene::run()
 	}
 	else if (!_snake->isAive() && _gm == GameMode::CAMPAIGN)
 	{
+		_getPass == false;
 		endCampaign();
 		_getch();
 	}

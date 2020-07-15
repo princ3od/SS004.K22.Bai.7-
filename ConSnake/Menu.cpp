@@ -128,37 +128,20 @@ back:
 				setColor(Color::YELLOW);
 			else
 				setColor(Color::GRAY);
-			if(i == 9)
-			{
-				cout << i + 1 << ".  ";
-			}else
-			cout << i + 1 << ".   ";
-			cout << _data._classicalHighScore[i];
-
-
-			//Endless
-			gotoXY(MAX / 2 + 8 , HEIGHT / 2 - 6);
-			setColor(Color::PURPLE);
-			cout << "[ENDLESS MODE]";
-			gotoXY(MAX / 2 + 12, HEIGHT / 2 - 6 + i + 1);
-			if (i < 3)
-				setColor(Color::YELLOW);
-			else
-				setColor(Color::GRAY);
 			if (i == 9)
 			{
 				cout << i + 1 << ".  ";
 			}
 			else
-			cout << i + 1 << ".   ";
-			cout << _data._endlessHighScore[i];
+				cout << i + 1 << ".   ";
+			cout << _data._classicalHighScore[i];
 
 
-			//Campaign
-			gotoXY(MAX / 2 - 48, HEIGHT / 2 - 6);
-			setColor(Color::RED);
-			cout << "[CAMPAIGN MODE]";
-			gotoXY(MAX / 2 - 49 , HEIGHT / 2 - 6 + i + 1);
+			//Endless
+			gotoXY(MAX / 2 + 27, HEIGHT / 2 - 6);
+			setColor(Color::PURPLE);
+			cout << "[ENDLESS MODE]";
+			gotoXY(MAX / 2 + 30, HEIGHT / 2 - 6 + i + 1);
 			if (i < 3)
 				setColor(Color::YELLOW);
 			else
@@ -169,30 +152,48 @@ back:
 			}
 			else
 				cout << i + 1 << ".   ";
-			cout << _data._campaignHighScore[i]._lv;
-			gotoXY(MAX / 2 - 39, HEIGHT / 2 - 6 + i + 1);
-			cout << "TIME:";
+			cout << _data._endlessHighScore[i];
+
+
+			//Campaign
+			gotoXY(MAX / 2 - 40, HEIGHT / 2 - 6);
+			setColor(Color::RED);
+			cout << "[CAMPAIGN MODE]";
+			gotoXY(MAX / 2 - 46, HEIGHT / 2 - 6 + i + 1);
+			if (i < 3)
+				setColor(Color::YELLOW);
+			else
+				setColor(Color::GRAY);
+			if (i == 9)
+			{
+				cout << i + 1 << ". ";
+			}
+			else
+				cout << i + 1 << ".  ";
+			cout <<  "Level: " << _data._campaignHighScore[i]._lv;
+			gotoXY(MAX / 2 - 30, HEIGHT / 2 - 6 + i + 1);
+			cout << "Time: ";
 			cout << _data._campaignHighScore[i]._time;
 			cout << "s";
 
 		}
 		do
 		{
-				setColor(_c[_curColor]);
-				_curColor++;
-				_curColor = (_curColor > 5) ? 0 : _curColor;
-				gotoXY(1, HEIGHT / 2 - 10);
-				cout << "---------------------------------------------------[HIGH SCORE]--------------------------------------------------";
-				gotoXY(2, HEIGHT - 6);
-				cout << "----------------------------------------------------------------------------------------------------------------";
-				for (i = HEIGHT / 2 - 10; i < HEIGHT - 5; i++)
-				{
-					gotoXY(0, i);
-					cout << "||";
-					gotoXY(MAX, i);
-					cout << "||";
-				}
-				Sleep(100);
+			setColor(_c[_curColor]);
+			_curColor++;
+			_curColor = (_curColor > 5) ? 0 : _curColor;
+			gotoXY(1, HEIGHT / 2 - 10);
+			cout << "---------------------------------------------------[HIGH SCORE]--------------------------------------------------";
+			gotoXY(2, HEIGHT - 6);
+			cout << "----------------------------------------------------------------------------------------------------------------";
+			for (i = HEIGHT / 2 - 10; i < HEIGHT - 5; i++)
+			{
+				gotoXY(0, i);
+				cout << "||";
+				gotoXY(MAX, i);
+				cout << "||";
+			}
+			Sleep(100);
 		} while (!_kbhit());
 		input = _getch();
 		goto back;
@@ -203,11 +204,11 @@ back:
 		setColor(Color::ORANGE);   gotoXY(6, 11); cout << "Mon:"; setColor(Color::GREEN); cout << " Ky nang nghe nghiep(Professional Skill)";
 		setColor(Color::ORANGE);   gotoXY(6, 12); cout << "GV:";  setColor(Color::GREEN); cout << "  TS.Nguyen Van Toan";
 		setColor(Color::ORANGE);   gotoXY(6, 15); cout << "Nhom:";
-		setColor(Color::GREEN);    gotoXY(6, 16);cout << "- Duong Binh Trong - 19521056";
-								   gotoXY(6, 17);cout << "- Dang Hai Thinh - 19521056";
-								   gotoXY(6, 18);cout << "- Le Thanh Luan - 19520702";
+		setColor(Color::GREEN);    gotoXY(6, 16); cout << "- Duong Binh Trong - 19521056";
+		gotoXY(6, 17); cout << "- Dang Hai Thinh - 19521056";
+		gotoXY(6, 18); cout << "- Le Thanh Luan - 19520702";
 
-		
+
 		//help
 		setColor(Color::GRAY);
 		for (int j = HEIGHT / 2 - 10; j < HEIGHT / 2 + 10; j++)
@@ -243,7 +244,7 @@ back:
 		cout << "UP        = UP ARROW / W";
 		gotoXY(WIDTH - 15, HEIGHT / 2 - 2);
 		cout << "DOWN      = DOWN ARROW / S";
-		gotoXY(WIDTH - 15, HEIGHT / 2 );
+		gotoXY(WIDTH - 15, HEIGHT / 2);
 		cout << "LEFT      = LEFT ARROW / A";
 		gotoXY(WIDTH - 15, HEIGHT / 2 + 2);
 		cout << "RIGHT     = RIGHT ARROW / D";
@@ -275,6 +276,7 @@ back:
 		gotoXY(WIDTH / 2 - 7, HEIGHT / 2 - 1); cout << "     |    GOOD BYE! (^O^)/   |" << endl;
 		gotoXY(WIDTH / 2 - 2, HEIGHT / 2); cout << "-------------------------" << endl;
 		gotoXY(WIDTH / 2 - 2, HEIGHT / 2 + 5);
+		Sleep(3000);
 		exit(1);
 	}
 	return _chosenSection;
